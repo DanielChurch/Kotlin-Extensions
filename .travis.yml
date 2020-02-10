@@ -1,0 +1,10 @@
+language: dart
+dart:
+# Install the latest stable release
+- stable
+
+dart_task:
+  - test: --platform vm
+  # - test: --platform chrome
+  - dartanalyzer: --fatal-warnings lib
+  - dartfmt

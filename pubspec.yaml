@@ -1,0 +1,15 @@
+name: kt_xt
+version: 0.0.1
+description: A library of extension methods inspired by Kotlin.
+homepage: https://github.com/danchurch-wk/KotlinExtensionsForDart
+repository: https://github.com/danchurch-wk/KotlinExtensionsForDart
+
+environment:
+  sdk: '>=2.7.0 <3.0.0'
+
+dependencies:
+  meta: ^1.0.0
+
+dev_dependencies:
+  test: ^1.0.0
+  pedantic: ^1.9.0
