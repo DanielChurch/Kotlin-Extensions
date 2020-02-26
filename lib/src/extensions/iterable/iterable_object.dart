@@ -3,11 +3,11 @@ import 'package:meta/meta.dart';
 import 'package:kt_xt/pair.dart';
 import 'package:kt_xt/typedefs.dart';
 
-import 'iterable_map_extensions.dart';
+import 'iterable_map.dart';
 
 bool _isNotNull<T>(T element) => element != null;
 
-extension KotlinIterableExtensions<T> on Iterable<T> {
+extension Associate<T> on Iterable<T> {
   /// Returns a [Map] containing key-value pairs provided by the [transform]
   /// function applied to elements of the given [Iterable].
   ///
@@ -27,7 +27,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Map<K, V> associate<K, V>(Transform<T, Map<K, V>> transform) {
     return map(transform).toMap();
   }
+}
 
+extension AssociateBy<T> on Iterable<T> {
   /// Returns a [Map] containing the values provided by [value] and indexed by
   /// the [key] functions applied to elements of the given `[terable].
   ///
@@ -49,7 +51,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   }) {
     return {for (final element in this) key(element): value(element)};
   }
+}
 
+extension AssociateWith<T> on Iterable<T> {
   /// Returns a [Map] where keys are elements from the given collection and values are
   /// produced by the [valueSelector] function applied to each element.
   ///
@@ -67,7 +71,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Map<T, V> associateWith<V>(Selector<T, V> valueSelector) {
     return {for (final element in this) element: valueSelector(element)};
   }
+}
 
+extension ContainsAll<T> on Iterable<T> {
   /// Checks if all elements in the specified collection are contained in this collection.
   ///
   /// Examples:
@@ -76,7 +82,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// [0, 1, 3].containsAll([0, 1, 4]); // => false
   /// ```
   bool containsAll(Iterable<T> elements) => elements.every(contains);
+}
 
+extension FirstOrNull<T> on Iterable<T> {
   /// Returns the [first] element, or `null` if the collection [isEmpty] or `null`.
   ///
   /// Related: [last], [lastOrNull], [first]
@@ -88,7 +96,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// [0, 1, 2].firstOrNull; // => 0
   /// ```
   T get firstOrNull => isNullOrEmpty ? null : first;
+}
 
+extension FlatMap<T> on Iterable<T> {
   /// Returns a lazy [Iterable] of all elements yielded from the results of the
   /// [transform] function being invoked on each entry of the original [Iterable].
   ///
@@ -101,7 +111,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Iterable<R> flatMap<R>(Transform<T, Iterable<R>> transform) {
     return expand(transform);
   }
+}
 
+extension ForEachIndexed<T> on Iterable<T> {
   /// Performs the given [action] on each element, providing sequential index
   /// (starting at 0) with the element.
   ///
@@ -121,7 +133,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     forEach((T element) => indexedAction(index++, element));
   }
+}
 
+extension GroupBy<T> on Iterable<T> {
   /// Groups elements of the original [Iterable] by the key returned by the
   /// given [keySelector] function applied to each element and returns a [Map]
   /// where each group key is associated with a [List] of corresponding elements.
@@ -145,7 +159,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     return output;
   }
+}
 
+extension IsNullOrEmpty<T> on Iterable<T> {
   /// Returns `true` if this Iterable is either `null` or empty.
   ///
   /// Examples:
@@ -155,7 +171,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// [0, 1].isNullOrEmpty; // => false
   /// ```
   bool get isNullOrEmpty => this == null || isEmpty;
+}
 
+extension LastOrNull<T> on Iterable<T> {
   /// Returns the [last] element, or `null` if the collection [isEmpty] or `null`.
   ///
   /// Related: [last], [first], [firstOrNull]
@@ -167,7 +185,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// [0, 1, 2].lastOrNull; // => 2
   /// ```
   T get lastOrNull => isNullOrEmpty ? null : last;
+}
 
+extension MapIndexed<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing the results of applying the given [transform] function
   /// to each element and its index in the original collection.
   ///
@@ -184,7 +204,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     return map((T element) => indexedTransform(index++, element));
   }
+}
 
+extension MapIndexedNotNull<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing only the non-null results of applying the given [transform] function
   /// to each element and its index in the original collection.
   ///
@@ -203,7 +225,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Iterable<R> mapIndexedNotNull<R>(IndexedTransform<T, R> indexedTransform) {
     return mapIndexed(indexedTransform).whereNotNull();
   }
+}
 
+extension MapNotNull<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing only the non-null results of applying
   /// the given [transform] function to each element in the original collection.
   ///
@@ -222,7 +246,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Iterable<R> mapNotNull<R>(Transform<T, R> transform) {
     return map(transform).whereNotNull();
   }
+}
 
+extension MaxBy<T> on Iterable<T> {
   /// Returns the first element yielding the largest value of
   /// the given [selector] or `null` if there are no elements.
   ///
@@ -234,11 +260,14 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// data.keys.maxBy((i) => data[i]); // => 'World'
   /// ```
   T maxBy<R extends Comparable>(Selector<T, R> selector) {
+    // TODO: why not Comparable<T> // TODO: wrong file?
     return reduceOrNull((i, j) {
       return selector(i).compareTo(selector(j)) >= 0 ? i : j;
     });
   }
+}
 
+extension MaxWith<T> on Iterable<T> {
   /// Returns the first element having the largest value according
   /// to the provided [comparator] or `null` if there are no elements.
   ///
@@ -252,7 +281,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   T maxWith(Comparator<T> comparator) {
     return reduceOrNull((i, j) => comparator(i, j) >= 0 ? i : j);
   }
+}
 
+extension MinBy<T> on Iterable<T> {
   /// Returns the first element yielding the smallest value of
   /// the given function or `null` if there are no elements.
   ///
@@ -264,11 +295,14 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// data.keys.minBy((i) => data[i]); // => 'Hello'
   /// ```
   T minBy<R extends Comparable>(Selector<T, R> selector) {
+    // TODO: // TODO: why not Comparable<T>? TODO: wrong file?
     return reduceOrNull((i, j) {
       return selector(i).compareTo(selector(j)) <= 0 ? i : j;
     });
   }
+}
 
+extension MinWith<T> on Iterable<T> {
   /// Returns the first element having the smallest value according
   /// to the provided [comparator] or `null` if there are no elements.
   ///
@@ -282,7 +316,14 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   T minWith(Comparator<T> comparator) {
     return reduceOrNull((i, j) => comparator(i, j) <= 0 ? i : j);
   }
+}
 
+extension None<T> on Iterable<T> {
+  // TODO
+  bool none(Predicate<T> predicate) => !any(predicate);
+}
+
+extension Partition<T> on Iterable<T> {
   /// Splits the original [Iterable] into a [Pair] of [Iterable]s.
   ///
   /// The first [Iterable] contains elements for which [predicate] yielded `true`.
@@ -298,7 +339,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Pair<Iterable<T>, Iterable<T>> partition(Predicate<T> predicate) {
     return Pair(where(predicate), whereNot(predicate));
   }
+}
 
+extension ReduceIndexed<T> on Iterable<T> {
   /// Accumulates value starting with the first element and applying operation
   /// from left to right to current accumulator value and each element with its
   /// index in the original `Iterable`.
@@ -324,7 +367,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     return reduce((i, j) => indexedCombine(index++, i, j));
   }
+}
 
+extension ReduceIndexedOrNull<T> on Iterable<T> {
   /// Accumulates value starting with the first element and applying operation
   /// from left to right to current accumulator value and each element with its
   /// index in the original `Iterable`.
@@ -350,7 +395,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     return reduceOrNull((i, j) => combine(index++, i, j));
   }
+}
 
+extension ReduceOrNull<T> on Iterable<T> {
   /// Accumulates value starting with the first element and applying operation
   /// from left to right to current accumulator value and each element.
   ///
@@ -370,7 +417,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     return reduce(reducer);
   }
+}
 
+extension WhereIndexed<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing only elements matching the given [predicate].
   ///
   /// Related: [where], [whereIsNotNull], [whereNotNull], [whereNot]
@@ -386,7 +435,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
 
     return where((T element) => indexedPredicate(index++, element));
   }
+}
 
+extension WhereIsNotNull<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing all elements of the original [Iterable]
   /// where the result of [transform] applied on the elements is not `null`.
   ///
@@ -402,7 +453,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   Iterable<T> whereIsNotNull<R>(Transform<T, R> transform) {
     return where((T element) => transform(element) != null);
   }
+}
 
+extension WhereNot<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing all elements not matching the given predicate.
   ///
   /// Related: [where], [whereIndexed], [whereIsNotNull], [whereNotNull]
@@ -413,7 +466,9 @@ extension KotlinIterableExtensions<T> on Iterable<T> {
   /// ['Hello', 'Foo', 'World'].filterNot((i) => i == 'Foo'); // => ('Hello', 'World')
   /// ```
   Iterable<T> whereNot(Predicate<T> predicate) => where((e) => !predicate(e));
+}
 
+extension WhereNotNull<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing all elements that are not `null`.
   ///
   /// Related: [where], [whereIndexed], [whereIsNotNull], [whereNot]

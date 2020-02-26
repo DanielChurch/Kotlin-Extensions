@@ -6,6 +6,7 @@
     - [getOrElse](#getOrElse)
     - [mapKeys](#mapKeys)
     - [mapValues](#mapValues)
+- [On Map\<K extends Comparable\<K\>\>](#on-mapk-extends-comparablek)
 
 ## On `Map<K, V>`
 
@@ -110,6 +111,8 @@ final result = {'Hello': 'World'}.mapValues((v) => '$v$v');
 
 print(result); // {'Hello': 'WorldWorld'}
 ```
+
+## On `Map<K extends Comparable<K>>`
 
 [reduce (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/reduce.html
 [forEach (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/forEach.html

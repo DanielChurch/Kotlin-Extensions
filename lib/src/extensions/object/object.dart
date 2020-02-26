@@ -1,6 +1,6 @@
 import 'package:kt_xt/typedefs.dart';
 
-extension KotlinObjectExtensions<T> on T {
+extension Also<T> on T {
   /// Calls the specified function [Block] with `this`
   /// value as its argument and returns `this` value.
   ///
@@ -15,7 +15,9 @@ extension KotlinObjectExtensions<T> on T {
 
     return this;
   }
+}
 
+extension Let<T> on T {
   /// Calls the specified function [block] with `this`
   /// value as its argument and returns its result.
   ///

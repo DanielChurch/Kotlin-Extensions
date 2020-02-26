@@ -2,7 +2,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kt_xt/iterable.dart';
 
 void main() {
   group('for an Iterable<T extends Comparable>', () {

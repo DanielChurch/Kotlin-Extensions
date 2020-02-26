@@ -2,7 +2,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kt_xt/iterable.dart';
+import 'package:kt_xt/object.dart';
 import 'package:kt_xt/src/pair.dart';
 
 class TestObj {
@@ -340,7 +341,8 @@ void main() {
 
     group('isNullOrEmpty', () {
       test('returns true when the iterable is null or empty', () {
-        expect(null.isNullOrEmpty, isTrue);
+        Iterable iter;
+        expect(iter.isNullOrEmpty, isTrue);
         expect([].isNullOrEmpty, isTrue);
       });
 

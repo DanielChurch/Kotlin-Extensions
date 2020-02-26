@@ -2,7 +2,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kt_xt/map.dart';
+import 'package:kt_xt/object.dart';
 
 void main() {
   group('get', () {

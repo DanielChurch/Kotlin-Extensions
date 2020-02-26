@@ -2,7 +2,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kt_xt/object.dart';
 import 'package:kt_xt/pair.dart';
 
 void main() {

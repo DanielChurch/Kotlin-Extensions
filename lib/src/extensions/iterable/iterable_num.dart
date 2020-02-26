@@ -1,6 +1,6 @@
-import 'iterable_object_extensions.dart';
+import 'iterable_object.dart';
 
-extension KotlinIterableOfNumExtensions<T extends num> on Iterable<T> {
+extension Sum<T extends num> on Iterable<T> {
   /// Returns the sum of all elements in the collection.
   ///
   /// Returns 0 if [isEmpty].
@@ -11,7 +11,9 @@ extension KotlinIterableOfNumExtensions<T extends num> on Iterable<T> {
   /// [1, 2, 3].sum; // => 6
   /// ```
   num get sum => reduceOrNull((i, j) => i + j) ?? 0;
+}
 
+extension Average<T extends num> on Iterable<T> {
   /// Returns an average value of elements in the collection.
   ///
   /// Returns [NaN] if [isEmpty].

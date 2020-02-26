@@ -2,7 +2,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kt_xt/list.dart';
+import 'package:kt_xt/object.dart';
 
 class Box<T extends Comparable> implements Comparable<Box<T>> {
   T value;

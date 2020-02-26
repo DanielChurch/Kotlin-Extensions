@@ -1,6 +1,6 @@
-import '../object/object_extensions.dart';
+import '../object/object.dart';
 
-extension KotlinIterableOfMapExtensions<K, V> on Iterable<Map<K, V>> {
+extension ToMap<K, V> on Iterable<Map<K, V>> {
   /// Returns a new [Map] containing all key-value pairs from the given collection.
   ///
   /// The returned [Map] preserves the entry iteration order of the original collection.

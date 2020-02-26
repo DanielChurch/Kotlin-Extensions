@@ -1,7 +1,7 @@
-import 'iterable_object_extensions.dart';
+import 'iterable_object.dart';
 
-extension KotlinIterableOfComparableExtensions<T extends Comparable>
-    on Iterable<T> {
+// TODO: why not Comparable<T>?
+extension Max<T extends Comparable> on Iterable<T> {
   /// Returns the largest element or `null` if there are no elements.
   ///
   /// Related: [maxBy], [maxWith], [min], [minBy], [minWith]
@@ -12,7 +12,10 @@ extension KotlinIterableOfComparableExtensions<T extends Comparable>
   /// [].max; // => null
   /// ```
   T get max => reduceOrNull((i, j) => i.compareTo(j) > 0 ? i : j);
+}
 
+// TODO: why not Comparable<T>?
+extension Min<T extends Comparable> on Iterable<T> {
   /// Returns the smallest element or `null` if there are no elements.
   ///
   /// Related: [minBy], [minWith], [max], [maxBy], [maxWith]

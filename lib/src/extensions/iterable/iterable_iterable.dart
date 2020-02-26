@@ -1,6 +1,6 @@
 T _identity<T>(T t) => t;
 
-extension KotlinIterableOfIterableExtensions<T> on Iterable<Iterable<T>> {
+extension Flatten<T> on Iterable<Iterable<T>> {
   /// Returns a flat [Iterable] of all elements from all Iterables in the given collection.
   ///
   /// Related: [flatMap]
