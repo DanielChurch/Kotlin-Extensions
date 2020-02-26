@@ -1,5 +1,3 @@
-@TestOn('vm')
-
 import 'package:test/test.dart';
 
 import 'list/list_comparable_test.dart' as list_comparable_test;

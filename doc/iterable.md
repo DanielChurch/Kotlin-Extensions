@@ -18,6 +18,7 @@
   - [maxWith](#maxWith)
   - [minBy](#minBy)
   - [minWith](#minWith)
+  - [none](#none)
   - [partition](#partition)
   - [reduceIndexed](#reduceIndexed)
   - [reduceIndexedOrNull](#reduceIndexedOrNull-not-from-kotlin)
@@ -377,6 +378,29 @@ print(result); // 0
 final result = [0, 1, 2].minWith((i, j) => i < j ? 1 : -1);
 
 print(result); // 2
+```
+
+### [`none`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/none.html)
+
+```Dart
+bool Iterable<T>.none(bool Function(T) predicate)
+```
+
+Returns `true` if no elements match the given `predicate`.
+
+Related: [any (Dart)], [every (Dart)]
+
+Example:
+```Dart
+bool isNone = [0, 1, 2].none((i) => i == 5);
+
+print(isNone); // true
+```
+
+```Dart
+bool isNone = [0, 1, 2].none((i) => i == 2);
+
+print(isNone); // false
 ```
 
 ### [`partition`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/partition.html)
@@ -760,9 +784,11 @@ print([8, 10, 2].min); // 2
 print(<int>[].min); // null
 ```
 
-[reduce (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/reduce.html
-[forEach (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/forEach.html
-[map (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/map.html
-[where (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/where.html
-[last (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/last.html
+[any (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/any.html
+[every (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/every.html
 [first (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/first.html
+[forEach (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/forEach.html
+[last (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/last.html
+[map (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/map.html
+[reduce (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/reduce.html
+[where (Dart)]: https://api.flutter.dev/flutter/dart-core/Iterable/where.html

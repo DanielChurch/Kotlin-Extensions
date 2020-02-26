@@ -1,10 +1,20 @@
+# osx to install LCOV for coverage
+os: osx
 language: dart
 dart:
-# Install the latest stable release
-- stable
+  - stable
+
+before_install:
+  - brew update
+  - brew install lcov
 
 dart_task:
   - test: --platform vm
-  # - test: --platform chrome
   - dartanalyzer: --fatal-warnings lib
   - dartfmt
+
+script:
+  # Collect coverage and post to codecov
+  - pub global activate coverage
+  - make coverage
+  - cd coverage && bash <(curl -s https://codecov.io/bash)

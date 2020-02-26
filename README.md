@@ -1,5 +1,5 @@
 <h1 align="center">
-KtXt.dart
+KotlinExtensions.dart
 </h1>
 
 <p align="center">
@@ -14,29 +14,31 @@ KtXt.dart
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.com/DanielChurch/KtXt.dart">
-    <img src="https://travis-ci.com/DanielChurch/KtXt.dart.svg?branch=master">
+  <a href="https://travis-ci.org/DanielChurch/Kotlin-Extensions">
+    <img src="https://travis-ci.org/DanielChurch/Kotlin-Extensions.svg?branch=master">
   </a>
-  <a href="https://codecov.io/gh/DanielChurch/KtXt.dart">
-      <img src="https://codecov.io/gh/DanielChurch/KtXt.dart/branch/master/graph/badge.svg">
+  <a href="https://codecov.io/gh/DanielChurch/Kotlin-Extensions">
+    <img src="https://codecov.io/gh/DanielChurch/Kotlin-Extensions/branch/master/graph/badge.svg">
   </a>
 </p>
 
 ## Introduction
 
-`KtXt.dart` is a package that adds implementations of extensions from Kotlin.
+`KotlinExtensions` is a package that adds implementations of extensions from [Kotlin](https://kotlinlang.org/) to [Dart](https://dart.dev/).
 
 The extensions are:
   - Built on Dart's existing types
     - Familiar to existing Dart functionality
     - Easy to adopt
-    - `Iterable` -> `Iterable` methods are lazy
-  - Fully tested
+    - Follows Dart's methodology (eg. `Iterable` -> `Iterable` methods are lazy)
+  - Fully tested with meaningful coverage
   - Well documentented
+  - Built to be compatable with other similar libraries
+    - `show`/`hide` anything extension you would like on an individual basis
 
 ## Added Extensions
 
-On `T`: [also](doc/object.md#also), [let](doc/object.md#let)
+On `T`: [also](doc/object.md#also), [let](doc/object.md#let), [to](doc/object.md#to)
 
 On `Iterable<T>`: [associate](doc/iterable.md#associate), [associateBy](doc/iterable.md#associateBy), [associateWith](doc/iterable.md#associateWith), [containsAll](doc/iterable.md#containsAll), [firstOrNull](doc/iterable.md#firstOrNull), [flatMap](doc/iterable.md#flatMap), [forEachIndexed](doc/iterable.md#forEachIndexed), [groupBy](doc/iterable.md#groupBy), [isNullOrEmpty](doc/iterable.md#isNullOrEmpty), [lastOrNull](doc/iterable.md#lastOrNull), [mapIndexed](doc/iterable.md#mapIndexed), [mapIndexedNotNull](doc/iterable.md#mapIndexedNotNull), [mapNotNull](doc/iterable.md#mapNotNull), [maxBy](doc/iterable.md#maxBy), [maxWith](doc/iterable.md#maxWith), [minBy](doc/iterable.md#minBy), [minWith](doc/iterable.md#minWith), [partition](doc/iterable.md#partition), [reduceIndexed](doc/iterable.md#reduceIndexed), [reduceIndexedOrNull](doc/iterable.md#reduceIndexedOrNull-not-from-kotlin), [reduceOrNull](doc/iterable.md#reduceOrNull-not-from-kotlin), [whereIndexed](doc/iterable.md#whereIndexed-kotlin-filterIndexed), [whereIsNotNull](doc/iterable.md#whereIsNotNull-not-from-kotlin), [whereNot (Kotlin filterNot)](doc/iterable.md#whereNot-kotlin-filterNot), [whereNotNull](doc/iterable.md#whereNotNull-kotlin-filterNotNull)
 
@@ -52,7 +54,9 @@ On `List<T>`: [distinct](doc/list.md#distinct), [distinctBy](doc/list.md#distinc
 
 On `List<T extends Comparable>`: [sorted](doc/list.md#sorted), [sortedDescending](doc/list.md#sortedDescending)
 
-On `Map<K, V>`: [get](doc/map.md#get), [getOrDefault](doc/map.md#getOrDefault), [getOrElse](doc/map.md#getOrElse), [mapKeys](doc/map.md#mapKeys), [mapValues](doc/map.md#mapValues)
+On `Map<K, V>`: [any](doc/map.md#any), [asIterable](doc/map.md#asIterable), [copy](doc/map.md#copy), [every](doc/map.md#every), [flatMap](doc/map.md#flatMap), [getOrDefault](doc/map.md#getOrDefault), [getOrElse](doc/map.md#getOrElse), [getOrNull](doc/map.md#getOrNull), [getValue](doc/map.md#getValue), [isNullOrEmpty](doc/map.md#isNullOrEmpty), [mapKeys](doc/map.md#mapKeys), [mapNotNull](doc/map.md#mapNotNull), [mapToIterable](doc/map.md#mapToIterable), [mapValues](doc/map.md#mapValues), [maxBy](doc/map.md#maxBy), [maxWith](doc/map.md#maxWith), [minBy](doc/map.md#minBy), [minWith](doc/map.md#minWith), [none](doc/map.md#none), [onEach](doc/map.md#onEach), [orEmpty](doc/map.md#orEmpty), [plus](doc/map.md#plus), [toList](doc/map.md#toList), [where](doc/map.md#where), [whereKeys](doc/map.md#whereKeys), [whereNot](doc/map.md#whereNot), [whereValues](doc/map.md#whereValues)
+
+On `bool Function(T)` & `bool Function(K, V)`: [and](doc/function.md#and), [negate](doc/function.md#negate), [or](doc/function.md#or)
 
 ## Requirements
 
@@ -60,15 +64,37 @@ This project adds extension methods, an addition from Dart SDK `2.7.0`. Your pro
 
 ## Using it in your project
 
-1. Add the `kt_xt` package as a dependency in your `pubspec.yaml`.
+1. Add the `kotlin_extensions` package as a dependency in your `pubspec.yaml`.
 
 ```yaml
 dependencies:
-  kt_xt: ^1.0.0
+  kotlin_extensions: ^1.0.0
 ```
 
 2. Import the extensions where you would like to use them.
 
+The extensions are split up into separate libraries, so you can import only what you need. The packages are separated by what object the extensions are on:
+
 ```Dart
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kotlin_extensions/iterable.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/list.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/map.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/set.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/object.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/function.dart';
 ```
