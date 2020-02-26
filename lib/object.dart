@@ -1,1 +1,1 @@
-export 'src/extensions/object_extensions.dart';
+export 'src/extensions/object/object.dart';
