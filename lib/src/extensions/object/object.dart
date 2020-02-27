@@ -1,4 +1,4 @@
-import 'package:kt_xt/typedefs.dart';
+import 'package:kotlin_extensions/typedefs.dart';
 
 extension Also<T> on T {
   /// Calls the specified function [Block] with `this`

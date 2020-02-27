@@ -1,5 +1,5 @@
 <h1 align="center">
-KtXt.dart
+KotlinExtensions.dart
 </h1>
 
 <p align="center">
@@ -24,7 +24,7 @@ KtXt.dart
 
 ## Introduction
 
-`KtXt.dart` is a package that adds implementations of extensions from Kotlin.
+`KotlinExtensions.dart` is a package that adds implementations of extensions from Kotlin.
 
 The extensions are:
   - Built on Dart's existing types
@@ -33,6 +33,8 @@ The extensions are:
     - `Iterable` -> `Iterable` methods are lazy
   - Fully tested
   - Well documentented
+  - Built to be compatable with other similar libraries
+    - `show`/`hide` anything extension you would like on an individual basis
 
 ## Added Extensions
 
@@ -60,15 +62,33 @@ This project adds extension methods, an addition from Dart SDK `2.7.0`. Your pro
 
 ## Using it in your project
 
-1. Add the `kt_xt` package as a dependency in your `pubspec.yaml`.
+1. Add the `kotlin_extensions` package as a dependency in your `pubspec.yaml`.
 
 ```yaml
 dependencies:
-  kt_xt: ^1.0.0
+  kotlin_extensions: ^1.0.0
 ```
 
 2. Import the extensions where you would like to use them.
 
+The extensions are split up into separate libraries, so you can only import what you need. The packages are separated by what object the extensions are on:
+
 ```Dart
-import 'package:kt_xt/kt_xt.dart';
+import 'package:kotlin_extensions/iterable.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/list.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/map.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/object.dart';
+```
+
+```Dart
+import 'package:kotlin_extensions/set.dart';
 ```

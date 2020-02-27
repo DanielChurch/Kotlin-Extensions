@@ -2,8 +2,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/object.dart';
-import 'package:kt_xt/pair.dart';
+import 'package:kotlin_extensions/object.dart';
+import 'package:kotlin_extensions/pair.dart';
 
 void main() {
   group('Pair', () {

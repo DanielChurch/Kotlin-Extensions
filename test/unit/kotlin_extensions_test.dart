@@ -10,7 +10,7 @@ import 'objects/pair_test.dart' as pair_extension_tests;
 import 'package:test/test.dart';
 
 void main() {
-  group('kt_xt', () {
+  group('kotlin_extensions', () {
     iterable_extension_tests.main();
     list_extension_tests.main();
     map_extension_tests.main();

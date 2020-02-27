@@ -1,4 +1,4 @@
-import 'package:kt_xt/typedefs.dart';
+import 'package:kotlin_extensions/typedefs.dart';
 
 extension Distinct<T> on List<T> {
   /// Returns a [List] containing only distinct elements from the given collection.

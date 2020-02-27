@@ -2,7 +2,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/object.dart';
+import 'package:kotlin_extensions/object.dart';
 
 void main() {
   group('also', () {

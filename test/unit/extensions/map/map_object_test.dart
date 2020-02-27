@@ -2,8 +2,8 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/map.dart';
-import 'package:kt_xt/object.dart';
+import 'package:kotlin_extensions/map.dart';
+import 'package:kotlin_extensions/object.dart';
 
 void main() {
   group('get', () {

@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
-import 'package:kt_xt/pair.dart';
-import 'package:kt_xt/typedefs.dart';
+import 'package:kotlin_extensions/pair.dart';
+import 'package:kotlin_extensions/typedefs.dart';
 
 import 'iterable_map.dart';
 

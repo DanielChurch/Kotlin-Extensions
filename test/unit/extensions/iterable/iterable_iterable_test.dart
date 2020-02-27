@@ -2,7 +2,7 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/iterable.dart';
+import 'package:kotlin_extensions/iterable.dart';
 
 void main() {
   group('for an Iterable<Iterable>', () {

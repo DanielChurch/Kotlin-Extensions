@@ -1,4 +1,4 @@
-import 'package:kt_xt/typedefs.dart';
+import 'package:kotlin_extensions/typedefs.dart';
 
 import '../iterable/iterable_map.dart';
 import '../iterable/iterable_object.dart';

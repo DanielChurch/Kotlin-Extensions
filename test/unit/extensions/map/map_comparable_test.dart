@@ -1,5 +1,6 @@
-// import 'package:kt_xt/kt_xt.dart' show Get;
+import 'package:kotlin_extensions/map.dart';
+import 'package:kotlin_extensions/iterable.dart';
 
 void main() {
-  // <String, int>{} + null;
+  <String, int>{}.flatMap(null);
 }

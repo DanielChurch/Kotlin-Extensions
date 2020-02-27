@@ -2,9 +2,9 @@
 
 import 'package:test/test.dart';
 
-import 'package:kt_xt/iterable.dart';
-import 'package:kt_xt/object.dart';
-import 'package:kt_xt/src/pair.dart';
+import 'package:kotlin_extensions/iterable.dart';
+import 'package:kotlin_extensions/object.dart';
+import 'package:kotlin_extensions/src/pair.dart';
 
 class TestObj {
   int x;
