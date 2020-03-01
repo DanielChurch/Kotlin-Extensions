@@ -27,11 +27,11 @@ void main() {
       test('returns null when the element is not in the map', () {
         <String, int>{'Hello': 1, 'World': 2} // Format
             .getOrNull('Foo')
-            .expectEqualsNull();
+            .expectIsNull();
 
         <double, String>{3.14159265: 'pi'} // Format
             .getOrNull(2.17)
-            .expectEqualsNull();
+            .expectIsNull();
       });
 
       test('chains together', () {
@@ -135,7 +135,7 @@ void main() {
         <String, String>{'Hello': 'World'}
             .getOrElse('Hello', () => param = 'Foo');
 
-        param.expectEqualsNull();
+        param.expectIsNull();
       });
 
       test('returns the correct type', () {

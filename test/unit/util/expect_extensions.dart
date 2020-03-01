@@ -23,12 +23,20 @@ extension ExpectIsA<T> on T {
 }
 
 extension ExpectIsNull<T> on T {
-  T expectEqualsNull() => Expect(this).expect(test.isNull);
+  T expectIsNull() => Expect(this).expect(test.isNull);
 }
 
 extension ExpectMatchesReference<T> on T {
   T expectMatchesReference(T other) {
     identical(this, other).expectIsTrue();
+
+    return this;
+  }
+}
+
+extension ExpectNotReference<T> on T {
+  T expectNotReference(T other) {
+    identical(this, other).expectIsFalse();
 
     return this;
   }
@@ -42,9 +50,14 @@ T expectFailsWith<T>(void Function() block) {
   return output;
 }
 
-void Function(ArgumentError) verifyArgumentError(
-    {String name, String message}) {
-  Error;
+void expectReturnsNormally(void Function() block) {
+  test.expect(block, test.returnsNormally);
+}
+
+void Function(ArgumentError) verifyArgumentError({
+  String name,
+  String message,
+}) {
   return (error) {
     error.name.expectEquals(name);
     (error.message as String).expectEquals(message);

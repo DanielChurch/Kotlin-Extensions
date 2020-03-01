@@ -53,7 +53,13 @@ extension AssociateBy<T> on Iterable<T> {
     @required Transform<T, K> key,
     @required Transform<T, V> value,
   }) {
-    checkAllNotNull({'key': key, 'value': value});
+    if (key == null && value == null) {
+      throw ArgumentError('key and value must not be null');
+    } else if (key == null) {
+      ArgumentError.checkNotNull(key, 'key');
+    } else if (value == null) {
+      ArgumentError.checkNotNull(value, 'value');
+    }
 
     return {for (final element in this) key(element): value(element)};
   }
