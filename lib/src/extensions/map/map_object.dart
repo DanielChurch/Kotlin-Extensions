@@ -3,6 +3,7 @@ import 'package:kotlin_extensions/typedefs.dart';
 import '../function/function_predicate.dart';
 import '../iterable/iterable_map.dart';
 import '../iterable/iterable_object.dart';
+import '../object/object.dart';
 
 // TODO: should we copy the doc string here too?
 extension Any<K, V> on Map<K, V> {
@@ -33,7 +34,9 @@ extension AsIterable<K, V> on Map<K, V> {
   /// Examples:
   /// ```Dart
   /// ```
-  Iterable<Map<K, V>> asIterable() => keys.map((K key) => {key: this[key]});
+  Iterable<MapEntry<K, V>> asIterable() {
+    return keys.map((K key) => To(key).to(this[key]));
+  }
 }
 
 extension Copy<K, V> on Map<K, V> {
@@ -236,7 +239,7 @@ extension MapToIterable<K, V> on Map<K, V> {
   Iterable<T> mapToIterable<T>(BinaryTransform<K, V, T> transform) {
     ArgumentError.checkNotNull(transform, 'transform');
 
-    return asIterable().map((m) => transform(m.keys.single, m.values.single));
+    return asIterable().map((entry) => transform(entry.key, entry.value));
   }
 }
 
@@ -271,7 +274,9 @@ extension MaxBy<K, V> on Map<K, V> {
   /// <int, int>{5: 20, 7: 9}.maxBy((k, v) => k); // => {7: 9}
   /// <int, int>{5: 20, 7: 9}.maxBy((k, v) => v); // => {5: 20}
   /// ```
-  Map<K, V> maxBy<R extends Comparable>(BinarySelector<K, V, R> selector) {
+  MapEntry<K, V> maxBy<R extends Comparable>(
+    BinarySelector<K, V, R> selector,
+  ) {
     ArgumentError.checkNotNull(selector, 'selector');
 
     return asIterable().maxBy(selector.toUnary());
@@ -289,17 +294,10 @@ extension MaxWith<K, V> on Map<K, V> {
   /// TODO
   /// <String, int>{'Hello': 2, 'Yo': 3}.maxWith((k1, v1, k2, v2) => ); // =>
   /// ```
-  Map<K, V> maxWith(BinaryComparator<K, V> compare) {
+  MapEntry<K, V> maxWith(Comparator<MapEntry<K, V>> compare) {
     ArgumentError.checkNotNull(compare, 'compare');
 
-    return asIterable().maxWith((m1, m2) {
-      return compare(
-        m1.keys.single,
-        m1.values.single,
-        m2.keys.single,
-        m2.values.single,
-      );
-    });
+    return asIterable().maxWith(compare);
   }
 }
 
@@ -314,7 +312,7 @@ extension MinBy<K, V> on Map<K, V> {
   /// <String, int>{'Hello': 2, 'Yo': 3}.minBy((k, v) => k.length); // => {'Yo': 3}
   /// <String, int>{'Hello': 2, 'Yo': 3}.minBy((k, v) => v); // => {'Hello': 2}
   /// ```
-  Map<K, V> minBy<R extends Comparable>(BinarySelector<K, V, R> selector) {
+  MapEntry<K, V> minBy<R extends Comparable>(BinarySelector<K, V, R> selector) {
     ArgumentError.checkNotNull(selector, 'selector');
 
     return asIterable().minBy(selector.toUnary());
@@ -331,17 +329,10 @@ extension MinWith<K, V> on Map<K, V> {
   /// ```Dart
   /// TODO
   /// ```
-  Map<K, V> minWith(BinaryComparator<K, V> compare) {
+  MapEntry<K, V> minWith(Comparator<MapEntry<K, V>> compare) {
     ArgumentError.checkNotNull(compare, 'compare');
 
-    return asIterable().minWith((m1, m2) {
-      return compare(
-        m1.keys.single,
-        m1.values.single,
-        m2.keys.single,
-        m2.values.single,
-      );
-    });
+    return asIterable().minWith(compare);
   }
 }
 
@@ -439,7 +430,7 @@ extension ToList<K, V> on Map<K, V> {
   /// ```Dart
   /// <String, int>{'Hello': 1, 'World': 2}.toList(); // => [{'Hello': 1}, {'World': 2}]
   /// ```
-  List<Map<K, V>> toList() => asIterable().toList();
+  List<MapEntry<K, V>> toList() => asIterable().toList();
 }
 
 extension Where<K, V> on Map<K, V> {
@@ -483,7 +474,7 @@ extension WhereKeys<K, V> on Map<K, V> {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
     return asIterable()
-        .where((Map<K, V> map) => predicate(map.keys.firstOrNull))
+        .where((MapEntry<K, V> entry) => predicate(entry.key))
         .toMap();
   }
 }
@@ -523,7 +514,7 @@ extension WhereValues<K, V> on Map<K, V> {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
     return asIterable()
-        .where((Map<K, V> map) => predicate(map.values.firstOrNull))
+        .where((MapEntry<K, V> entry) => predicate(entry.value))
         .toMap();
   }
 }

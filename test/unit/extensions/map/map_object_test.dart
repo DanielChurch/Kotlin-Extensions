@@ -251,15 +251,21 @@ void main() {
 
     group('asIterable', () {
       test('returns the correct result', () {
-        <String, int>{'H': 1, 'E': 2}.asIterable().expectEquals([
-          {'H': 1},
-          {'E': 2}
-        ]);
+        <String, int>{'H': 1, 'E': 2}.asIterable().let((entries) {
+          entries.first.key.expectEquals('H');
+          entries.first.value.expectEquals(1);
 
-        <int, String>{1: 'H', 2: 'E'}.asIterable().expectEquals([
-          {1: 'H'},
-          {2: 'E'}
-        ]);
+          entries.toList()[1].key.expectEquals('E');
+          entries.toList()[1].value.expectEquals(2);
+        });
+
+        <int, String>{1: 'H', 2: 'E'}.asIterable().let((entries) {
+          entries.first.key.expectEquals(1);
+          entries.first.value.expectEquals('H');
+
+          entries.toList()[1].key.expectEquals(2);
+          entries.toList()[1].value.expectEquals('E');
+        });
       });
     });
 
@@ -362,49 +368,53 @@ void main() {
 
     group('maxBy', () {
       test('returns the correct value', () {
-        <String, int>{'Hi': 7, 'Four': 24}
-            .maxBy((k, v) => k.length + v)
-            .expectEquals({'Four': 24});
+        <String, int>{'Hi': 7, 'Four': 24}.maxBy((k, v) => k.length + v)
+          ..key.expectEquals('Four')
+          ..value.expectEquals(24);
 
-        <String, int>{'Hi': 107, 'Four': 24}
-            .maxBy((k, v) => k.length + v)
-            .expectEquals({'Hi': 107});
+        <String, int>{'Hi': 107, 'Four': 24}.maxBy((k, v) => k.length + v)
+          ..key.expectEquals('Hi')
+          ..value.expectEquals(107);
       });
     });
 
     group('maxWith', () {
       test('returns the correct value', () {
         <String, int>{'Hi': 7, 'Four': 24}
-            .maxWith((k1, v1, k2, v2) => v1.compareTo(v2))
-            .expectEquals({'Four': 24});
+            .maxWith((e1, e2) => e1.value.compareTo(e2.value))
+              ..key.expectEquals('Four')
+              ..value.expectEquals(24);
 
         <String, int>{'Hi': 7, 'Four': 24}
-            .maxWith((k1, v1, k2, v2) => v2.compareTo(v1))
-            .expectEquals({'Hi': 7});
+            .maxWith((e1, e2) => e2.value.compareTo(e1.value))
+              ..key.expectEquals('Hi')
+              ..value.expectEquals(7);
       });
     });
 
     group('minBy', () {
       test('returns the correct value', () {
-        <String, int>{'Hi': 7, 'Four': 24}
-            .minBy((k, v) => k.length + v)
-            .expectEquals({'Hi': 7});
+        <String, int>{'Hi': 7, 'Four': 24}.minBy((k, v) => k.length + v)
+          ..key.expectEquals('Hi')
+          ..value.expectEquals(7);
 
-        <String, int>{'Hi': 107, 'Four': 24}
-            .minBy((k, v) => k.length + v)
-            .expectEquals({'Four': 24});
+        <String, int>{'Hi': 107, 'Four': 24}.minBy((k, v) => k.length + v)
+          ..key.expectEquals('Four')
+          ..value.expectEquals(24);
       });
     });
 
     group('minWith', () {
       test('returns the correct value', () {
         <String, int>{'Hi': 7, 'Four': 24}
-            .minWith((k1, v1, k2, v2) => v1.compareTo(v2))
-            .expectEquals({'Hi': 7});
+            .minWith((e1, e2) => e1.value.compareTo(e2.value))
+              ..key.expectEquals('Hi')
+              ..value.expectEquals(7);
 
         <String, int>{'Hi': 7, 'Four': 24}
-            .minWith((k1, v1, k2, v2) => v2.compareTo(v1))
-            .expectEquals({'Four': 24});
+            .minWith((e1, e2) => e2.value.compareTo(e1.value))
+              ..key.expectEquals('Four')
+              ..value.expectEquals(24);
       });
     });
 
@@ -495,15 +505,21 @@ void main() {
 
     group('toList', () {
       test('returns the correct result', () {
-        <String, int>{'H': 1, 'E': 2}.toList().expectEquals([
-          {'H': 1},
-          {'E': 2}
-        ]);
+        <String, int>{'H': 1, 'E': 2}.toList().let((entries) {
+          entries.first.key.expectEquals('H');
+          entries.first.value.expectEquals(1);
 
-        <int, String>{1: 'H', 2: 'E'}.toList().expectEquals([
-          {1: 'H'},
-          {2: 'E'}
-        ]);
+          entries[1].key.expectEquals('E');
+          entries[1].value.expectEquals(2);
+        });
+
+        <int, String>{1: 'H', 2: 'E'}.toList().let((entries) {
+          entries.first.key.expectEquals(1);
+          entries.first.value.expectEquals('H');
+
+          entries.toList()[1].key.expectEquals(2);
+          entries.toList()[1].value.expectEquals('E');
+        });
       });
     });
 

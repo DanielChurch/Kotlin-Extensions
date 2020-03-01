@@ -1,19 +1,19 @@
 # Map Extensions
 
 - [On Map\<K, V\>](#on-mapk-v)
-    - [any](#any) -
-    - [asIterable](#asIterable) -
-    - [copy](#copy) -
-    - [every](#every) -
-    - [flatMap](#flatMap) -
-    - [getOrDefault](#getOrDefault) -
-    - [getOrElse](#getOrElse) -
-    - [getOrNull](#getOrNull) -
-    - [getValue](#getValue) -
-    - [isNullOrEmpty](#isNullOrEmpty) -
-    - [mapKeys](#mapKeys) -
-    - [mapNotNull](#mapNotNull) -
-    - [mapToIterable](#mapToIterable) -
+    - [any](#any)
+    - [asIterable](#asIterable)
+    - [copy](#copy)
+    - [every](#every)
+    - [flatMap](#flatMap)
+    - [getOrDefault](#getOrDefault)
+    - [getOrElse](#getOrElse)
+    - [getOrNull](#getOrNull)
+    - [getValue](#getValue)
+    - [isNullOrEmpty](#isNullOrEmpty)
+    - [mapKeys](#mapKeys)
+    - [mapNotNull](#mapNotNull)
+    - [mapToIterable](#mapToIterable)
     - [mapValues](#mapValues)
     - [maxBy](#maxBy)
     - [maxWith](#maxWith)
@@ -47,7 +47,7 @@ print({1: 2, 3: 4}.any((k, v) => k == 2)); // => false
 ### [`asIterable`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/as-iterable.html)
 
 ```Dart
-Iterable<Map<K, V>> Map<K, V>.asIterable()
+Iterable<MapEntry<K, V>> Map<K, V>.asIterable()
 ```
 
 Creates a lazy `Iterable` that wraps the original `Map` returning its entries when being iterated.
@@ -56,7 +56,7 @@ Related: TODO
 
 Examples:
 ```Dart
-print({1: 2, 3: 4}.asIterable()); // => [{1: 2}, {3: 4}]
+print({1: 2, 3: 4}.asIterable()); // => [MapEntry(1, 2), MapEntry(3, 4)]
 ```
 
 ### [`copy (Kotlin toMap)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-map.html)
@@ -178,300 +178,6 @@ print({'Hi': 2}.getValue('Hi')); // 2
 print({'Hi': 2}.getValue('Hello')); // => throw StateError
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### [`maxBy`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/max-by.html)
-
-```Dart
-Map<K, V> Map<K, V>.maxBy<R extends Comparable>(R Function(K, V) selector)
-```
-
-Returns the first entry yielding the largest value of the given function or null if there are no entries.
-
-Related: TODO
-
-Examples:
-```Dart
-print({5: 20, 7: 9}.maxBy((k, v) => k)); // {7: 9}
-print({5: 20, 7: 9}.maxBy((k, v) => v)); // {5: 20}
-```
-
-### [`maxWith`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/max-with.html)
-
-```Dart
-Map<K, V> Map<K, V>.maxWith(int Function(K k1, V v2, K k2, V v2) compare)
-```
-
-Returns the first entry having the largest value according to the provided `compare` or `null` if there are no entries.
-
-Related: TODO
-
-Examples:
-```Dart
-TODO
-```
-
-### [`minBy`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/min-by.html)
-
-```Dart
-Map<K, V> Map<K, V>.minBy<R extends Comparable>(R Function(K, V) selector)
-```
-
-Returns the first entry yielding the smallest value of the given `selector` or `null` if there are no entries.
-
-Related: TODO
-
-Examples:
-```Dart
-print({'Hello': 2, 'Yo': 3}.minBy((k, v) => k.length)); // => {'Yo': 3}
-print({'Hello': 2, 'Yo': 3}.minBy((k, v) => v)); // => {'Hello': 2}
-```
-
-### [`minWith`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/min-with.html)
-
-```Dart
-Map<K, V> Map<K, V>.minWith(int Funciton(K k1, V v1, K k2, V v2) compare)
-```
-
-Returns the first entry having the smallest value according to the provided `compare` function or `null` if there are no entries.
-
-Related: TODO
-
-Examples:
-```Dart
-TODO
-```
-
-### [`none`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/none.html)
-
-```Dart
-bool Map<K, V>.none(bool Function(K, V) predicate)
-```
-
-Returns `true` if no entries match the given `predicate`.
-
-Related: TODO
-
-Examples:
-```Dart
-print({'Hello': 1, 'World': 2}.none((k, v) => k == 'Foo')); // => true
-print({'Hello': 1, 'World': 2}.none((k, v) => v == 42)); // => true
-
-print({'Hello': 1, 'World': 2}.none((k, v) => k == 'Hello')); // => false
-print({'Hello': 1, 'World': 2}.none((k, v) => v == 2)); // => false
-```
-
-### [`onEach`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/on-each.html)
-
-```Dart
-Map<K, V> Map<K, V>.onEach(void Function(K, V) action)
-```
-
-Performs the given `action` on each entry and returns the `Map` itself afterwards.
-
-Related: TODO
-
-Examples:
-```Dart
-TODO
-```
-
-### [`orEmpty`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/or-empty.html)
-
-```Dart
-Map<K, V> Map<K, V>.orEmpty()
-```
-
-Returns the `Map` if its not `null`, or an empty `Map` otherwise.
-
-Related: TODO
-
-Examples:
-```Dart
-Map map;
-final orEmpty = map.orEmpty();
-print(map.prEmpty); // {}
-
-```
-
-```Dart
-Map map = {0: 1};
-final orEmpty = map.orEmpty();
-
-print(identical(map, orEmpty)); // true (same Map reference)
-```
-
-### [`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html)
-
-```Dart
-Map<K, V> Map<K, V>.operator +(Map<K, V> rhs)
-```
-
-Creates a new `Map` by replacing or adding entries to this `Map` from another `Map`.
-
-The returned `Map` preserves the entry iteration order of the original `Map`. Those entries of another `Map` that are missing in this `Map` are iterated in the end in the order of that `Map`.
-
-Related: TODO
-
-Examples:
-```Dart
-print({'Hello': 1} + {'Hi': 2}); // {'Hello': 1, 'Hi': 2}
-print({'Hi': 1} + {'Hi': 2}); // {'Hi': 2}
-```
-
-### [`toList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)
-
-```Dart
-Map<K, V> Map<K, V>.where(bool Function(K, V) predicate)
-```
-
-Returns a `List` containing all key-value pairs.
-
-Related: TODO
-
-Examples:
-```Dart
-print({'Hello': 1, 'World': 2}.toList()); // [{'Hello': 1}, {'World': 2}]
-```
-
-### [`where (Kotlin filter)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)
-
-```Dart
-Map<K, V> Map<K, V>.where(bool Function(K, V) predicate)
-```
-
-Returns a new `Map` containing all key-value pairs matching the given `predicate`.
-
-The returned `Map` preserves the entry iteration order of the original `Map`.
-
-Related: TODO
-
-Examples:
-```Dart
-{'Hello': 1, 'World': 2}.where((k, v) => k.contains('ello'));
-// => {'Hello': 1}
-
-{'Hello': 1, 'World': 2}.where((k, v) => v < 2);
-// => {'Hello': 1}
-```
-
-### [`whereKeys (Kotlin filterKeys)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-keys.html)
-
-```Dart
-Map<K, V> Map<K, V>.whereKeys(bool Function(K) predicate)
-```
-
-Returns a `Map` containing all key-value pairs with keys matching the given `predicate`.
-
-The returned `Map` preserves the entry iteration order of the original `Map`.
-
-Related: TODO
-
-Examples:
-```Dart
-{'Hello': 1, 'World': 2}.whereKeys((k) => k.contains('ello'));
-// => {'Hello': 1}
-
-{'Hello': 1, 'Jello': 2}.whereKeys((k) => k.contains('ello'));
-// => {'Hello': 1, 'Jello': 2}
-```
-
-### [`whereNot (Kotlin filterNot)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not.html)
-
-```Dart
-Map<K, V> Map<K, V>.whereNot(bool Function(K, V) predicate)
-```
-
-Returns a new `Map` containing all key-value pairs not matching the given `predicate`.
-
-The returned `Map` preserves the entry iteration order of the original `Map`.
-
-Related: TODO
-
-Examples:
-```Dart
-print({'Hello': 1, 'Hi': 2}.whereNot((k, v) => k.contains('ello'))); // {'Hi': 2}
-```
-
-### [`whereValues (Kotlin filterValues)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-values.html)
-
-```Dart
-Map<K, V> Map<K, V>.whereValues(bool Function(V) predicate)
-```
-
-Returns a `Map` containing all key-value pairs with values matching the given `predicate`.
-
-The returned `Map` preserves the entry iteration order of the original `Map`.
-
-Related: TODO
-
-Examples:
-```Dart
-print({'Hello': 2, 'Hi': 1}.whereValues((v) => v > 1)); // {'Hello': 2}
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## On `Map<K, V>`
 
 ### [`isNullOrEmpty`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/is-null-or-empty.html)
@@ -574,6 +280,236 @@ print(result); // {0: 2, 2: 6}
 final result = {'Hello': 'World'}.mapValues((v) => '$v$v');
 
 print(result); // {'Hello': 'WorldWorld'}
+```
+
+### [`maxBy`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/max-by.html)
+
+```Dart
+MapEntry<K, V> Map<K, V>.maxBy<R extends Comparable>(R Function(K, V) selector)
+```
+
+Returns the first entry yielding the largest value of the given function or null if there are no entries.
+
+Related: TODO
+
+Examples:
+```Dart
+print({5: 20, 7: 9}.maxBy((k, v) => k)); // MapEntry(7: 9)
+print({5: 20, 7: 9}.maxBy((k, v) => v)); // MapEntry(5: 20)
+```
+
+### [`maxWith`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/max-with.html)
+
+```Dart
+MapEntry<K, V> Map<K, V>.maxWith(int Function(MapEntry<K, V> e1, MapEntry<K, V> e2) compare)
+```
+
+Returns the first entry having the largest value according to the provided `compare` or `null` if there are no entries.
+
+Related: TODO
+
+Examples:
+```Dart
+TODO
+```
+
+### [`minBy`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/min-by.html)
+
+```Dart
+MapEntry<K, V> Map<K, V>.minBy<R extends Comparable>(R Function(K, V) selector)
+```
+
+Returns the first entry yielding the smallest value of the given `selector` or `null` if there are no entries.
+
+Related: TODO
+
+Examples:
+```Dart
+print({'Hello': 2, 'Yo': 3}.minBy((k, v) => k.length)); // => MapEntry('Yo': 3)
+print({'Hello': 2, 'Yo': 3}.minBy((k, v) => v)); // => MapEntry('Hello': 2)
+```
+
+### [`minWith`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/min-with.html)
+
+```Dart
+MapEntry<K, V> Map<K, V>.minWith(int Funciton(MapEntry<K, V> e1, MapEntry<K, V> e2) compare)
+```
+
+Returns the first entry having the smallest value according to the provided `compare` function or `null` if there are no entries.
+
+Related: TODO
+
+Examples:
+```Dart
+TODO
+```
+
+### [`none`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/none.html)
+
+```Dart
+bool Map<K, V>.none(bool Function(K, V) predicate)
+```
+
+Returns `true` if no entries match the given `predicate`.
+
+Related: TODO
+
+Examples:
+```Dart
+print({'Hello': 1, 'World': 2}.none((k, v) => k == 'Foo')); // => true
+print({'Hello': 1, 'World': 2}.none((k, v) => v == 42)); // => true
+
+print({'Hello': 1, 'World': 2}.none((k, v) => k == 'Hello')); // => false
+print({'Hello': 1, 'World': 2}.none((k, v) => v == 2)); // => false
+```
+
+### [`onEach`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/on-each.html)
+
+```Dart
+Map<K, V> Map<K, V>.onEach(void Function(K, V) action)
+```
+
+Performs the given `action` on each entry and returns the `Map` itself afterwards.
+
+Related: TODO
+
+Examples:
+```Dart
+TODO
+```
+
+### [`orEmpty`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/or-empty.html)
+
+```Dart
+Map<K, V> Map<K, V>.orEmpty()
+```
+
+Returns the `Map` if its not `null`, or an empty `Map` otherwise.
+
+Related: TODO
+
+Examples:
+```Dart
+Map map;
+final orEmpty = map.orEmpty();
+print(map.prEmpty); // {}
+
+```
+
+```Dart
+Map map = {0: 1};
+final orEmpty = map.orEmpty();
+
+print(identical(map, orEmpty)); // true (same Map reference)
+```
+
+### [`plus`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/plus.html)
+
+```Dart
+Map<K, V> Map<K, V>.operator +(Map<K, V> rhs)
+```
+
+Creates a new `Map` by replacing or adding entries to this `Map` from another `Map`.
+
+The returned `Map` preserves the entry iteration order of the original `Map`. Those entries of another `Map` that are missing in this `Map` are iterated in the end in the order of that `Map`.
+
+Related: TODO
+
+Examples:
+```Dart
+print({'Hello': 1} + {'Hi': 2}); // {'Hello': 1, 'Hi': 2}
+print({'Hi': 1} + {'Hi': 2}); // {'Hi': 2}
+```
+
+### [`toList`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/to-list.html)
+
+```Dart
+List<MapEntry<K, V>> Map<K, V>.toList()
+```
+
+Returns a `List` containing all key-value pairs.
+
+Related: TODO
+
+Examples:
+```Dart
+print({'Hello': 1, 'World': 2}.toList()); // [MapEntry('Hello': 1), MapEntry('World': 2)]
+```
+
+### [`where (Kotlin filter)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter.html)
+
+```Dart
+Map<K, V> Map<K, V>.where(bool Function(K, V) predicate)
+```
+
+Returns a new `Map` containing all key-value pairs matching the given `predicate`.
+
+The returned `Map` preserves the entry iteration order of the original `Map`.
+
+Related: TODO
+
+Examples:
+```Dart
+{'Hello': 1, 'World': 2}.where((k, v) => k.contains('ello'));
+// => {'Hello': 1}
+
+{'Hello': 1, 'World': 2}.where((k, v) => v < 2);
+// => {'Hello': 1}
+```
+
+### [`whereKeys (Kotlin filterKeys)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-keys.html)
+
+```Dart
+Map<K, V> Map<K, V>.whereKeys(bool Function(K) predicate)
+```
+
+Returns a `Map` containing all key-value pairs with keys matching the given `predicate`.
+
+The returned `Map` preserves the entry iteration order of the original `Map`.
+
+Related: TODO
+
+Examples:
+```Dart
+{'Hello': 1, 'World': 2}.whereKeys((k) => k.contains('ello'));
+// => {'Hello': 1}
+
+{'Hello': 1, 'Jello': 2}.whereKeys((k) => k.contains('ello'));
+// => {'Hello': 1, 'Jello': 2}
+```
+
+### [`whereNot (Kotlin filterNot)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-not.html)
+
+```Dart
+Map<K, V> Map<K, V>.whereNot(bool Function(K, V) predicate)
+```
+
+Returns a new `Map` containing all key-value pairs not matching the given `predicate`.
+
+The returned `Map` preserves the entry iteration order of the original `Map`.
+
+Related: TODO
+
+Examples:
+```Dart
+print({'Hello': 1, 'Hi': 2}.whereNot((k, v) => k.contains('ello'))); // {'Hi': 2}
+```
+
+### [`whereValues (Kotlin filterValues)`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/filter-values.html)
+
+```Dart
+Map<K, V> Map<K, V>.whereValues(bool Function(V) predicate)
+```
+
+Returns a `Map` containing all key-value pairs with values matching the given `predicate`.
+
+The returned `Map` preserves the entry iteration order of the original `Map`.
+
+Related: TODO
+
+Examples:
+```Dart
+print({'Hello': 2, 'Hi': 1}.whereValues((v) => v > 1)); // {'Hello': 2}
 ```
 
 ## On `Map<K extends Comparable<K>>`

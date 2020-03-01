@@ -45,5 +45,13 @@ void main() {
         24.let((i) => i.expectEquals(24));
       });
     });
+
+    group('to', () {
+      test('', () {
+        'Hello'.to('World').expectIsA<MapEntry<String, String>>()
+          ..key.expectEquals('Hello')
+          ..value.expectEquals('World');
+      });
+    });
   });
 }

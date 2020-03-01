@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 
 import '../../pair.dart';
 import '../../typedefs.dart';
-import '../../util/errors/argument_error.dart';
 import '../function/function_predicate.dart';
 import '../object/object.dart';
 
@@ -12,8 +11,6 @@ import 'iterable_map.dart';
 extension Associate<T> on Iterable<T> {
   /// Returns a [Map] containing key-value pairs provided by the [transform]
   /// function applied to elements of the given [Iterable].
-  ///
-  /// The [transform] function can return multiple key-value pairs and all will be added to the resulting [Map].
   ///
   /// If any of two pairs would have the same key the last one gets added to the [Map].
   ///
@@ -26,7 +23,7 @@ extension Associate<T> on Iterable<T> {
   /// [0, 1, 2, 3].associate((i) => {i: '$i'}); // => {0: '0', 1: '1', 2: '2', 3: '3'}
   /// [0, 1].associate((i) => {i: '$i', -i: '$i'}); // => {0: '0', 1: '1', -1: '1'}
   /// ```
-  Map<K, V> associate<K, V>(Transform<T, Map<K, V>> transform) {
+  Map<K, V> associate<K, V>(Transform<T, MapEntry<K, V>> transform) {
     ArgumentError.checkNotNull(transform, 'transform');
 
     return map(transform).toMap();

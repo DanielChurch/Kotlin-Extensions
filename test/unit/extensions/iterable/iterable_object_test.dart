@@ -24,30 +24,22 @@ void main() {
       });
 
       test('handles an empty iterable', () {
-        [].associate((i) => {i: i}).expectEquals({});
+        <int>[].associate((i) => i.to(i)).expectEquals({});
       });
 
       test('returns the correct value', () {
         ['Hello', 'World', 'Foo']
-            .associate((str) => {str: str.length})
+            .associate((str) => str.to(str.length))
             .expectEquals({'Hello': 5, 'World': 5, 'Foo': 3});
-
-        ['Hello'].associate((s) => {}).expectEquals({});
       });
 
       test('uses the last common key', () {
-        [0, 1, 2].associate((i) => {0: i}).expectEquals({0: 2});
-      });
-
-      test('allows multiple key-value pairs & preserves order', () {
-        [0, 1, 2]
-            .associate((i) => {i: i, -i: i})
-            .expectEquals({0: 0, 1: 1, -1: 1, 2: 2, -2: 2});
+        [0, 1, 2].associate((i) => 0.to(i)).expectEquals({0: 2});
       });
 
       test('returns the correct type', () {
         ['Hello', 'World', 'Foo']
-            .associate((str) => {str: str.length})
+            .associate((str) => str.to(str.length))
             .expectIsA<Map<String, int>>();
       });
     });

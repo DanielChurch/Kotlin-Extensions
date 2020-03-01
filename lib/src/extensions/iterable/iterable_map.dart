@@ -1,4 +1,4 @@
-extension ToMap<K, V> on Iterable<Map<K, V>> {
+extension ToMap<K, V> on Iterable<MapEntry<K, V>> {
   /// Returns a new [Map] containing all key-value pairs from the given collection.
   ///
   /// The returned [Map] preserves the entry iteration order of the original collection.
@@ -10,11 +10,5 @@ extension ToMap<K, V> on Iterable<Map<K, V>> {
   /// [0, 1, 2, 3].map((i) => {i: i + 1}).toMap(); // => {0: 1, 1: 2, 2: 3, 3: 4}
   /// [{'Hello': 'Foo'}, {'Hello': 'World'}].toMap(); // => {'Hello': 'World'}
   /// ```
-  Map<K, V> toMap() {
-    final output = <K, V>{};
-
-    forEach(output.addAll);
-
-    return output;
-  }
+  Map<K, V> toMap() => Map.fromEntries(this);
 }

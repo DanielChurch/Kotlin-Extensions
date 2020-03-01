@@ -22,15 +22,15 @@ typedef Combine<T> = T Function(T, T);
 typedef IndexedCombine<T> = T Function(int, T, T);
 
 extension ToUnary<K, V, R> on BinaryTransform<K, V, R> {
-  Transform<Map<K, V>, R> toUnary() {
-    return (map) => this(map.keys.single, map.values.single);
+  Transform<MapEntry<K, V>, R> toUnary() {
+    return (entry) => this(entry.key, entry.value);
   }
 }
 
-extension ToUnaryPredicate<K, V> on BinaryPredicate<K, V> {
-  Predicate<Map<K, V>> toUnary() {
-    return (Map<K, V> mapEntry) {
-      return mapEntry.keys.every((k) => this(k, mapEntry[k]));
-    };
-  }
-}
+// extension ToUnaryPredicate<K, V> on BinaryPredicate<K, V> {
+//   Predicate<Map<K, V>> toUnary() {
+//     return (Map<K, V> mapEntry) {
+//       return mapEntry.keys.every((k) => this(k, mapEntry[k]));
+//     };
+//   }
+// }

@@ -42,3 +42,7 @@ extension Let<T> on T {
     return block(this);
   }
 }
+
+extension To<K> on K {
+  MapEntry<K, V> to<V>(V value) => MapEntry<K, V>(this, value);
+}
