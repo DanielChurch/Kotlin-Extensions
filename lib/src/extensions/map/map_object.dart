@@ -7,14 +7,14 @@ import '../iterable/iterable_object.dart';
 // TODO: should we copy the doc string here too?
 extension Any<K, V> on Map<K, V> {
   /// Returns `true` if at least one entry matches the given [predicate].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <int, int>{1: 2, 3: 4}.any((k, v) => k == 1); // => true
   /// <int, int>{1: 2, 3: 4}.any((k, v) => v == 4); // => true
-  /// 
+  ///
   /// <int, int>{1: 2, 3: 4}.any((k, v) => k == 2); // false
   /// ```
   bool any(BinaryPredicate<K, V> predicate) {
@@ -27,9 +27,9 @@ extension Any<K, V> on Map<K, V> {
 extension AsIterable<K, V> on Map<K, V> {
   /// Creates a lazy [Iterable] instance that wraps the original `Map`
   /// returning its entries when being iterated.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// ```
@@ -39,11 +39,11 @@ extension AsIterable<K, V> on Map<K, V> {
 extension Copy<K, V> on Map<K, V> {
   /// Returns a new read-only `Map` containing all key-value pairs
   /// from the original `Map`.
-  /// 
+  ///
   /// The returned `Map` preserves the entry iteration order of theoriginal `Map`.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// final map = {0: 1, 2: 3};
@@ -59,14 +59,14 @@ extension Copy<K, V> on Map<K, V> {
 
 extension Every<K, V> on Map<K, V> {
   /// Returns `true` if all entries match the given [predicate].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <int, int>{0: 1, 2: 3}.every((k, v) => k < 3); // => true
   /// <int, int>{0: 1, 2: 3}.every((k, v) => v < 4); // => true
-  /// 
+  ///
   /// <int, int>{0: 1, 2: 3}.every((k, v) => v < 2); // => false
   /// <int, int>{0: 1, 2: 3}.every((k, v) => v < 3); // => false
   /// ```
@@ -80,9 +80,9 @@ extension Every<K, V> on Map<K, V> {
 extension FlatMap<K, V> on Map<K, V> {
   /// Returns a lazy [Iterable] of all elements yielded from results of
   /// [transform] function being invoked on each entry of original [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Example:
   /// ```Dart
   /// <int, int>{1: 2, 3: 4}.flatMap((k, v) => [k, v]); // => (1, 2, 3, 4)
@@ -151,9 +151,9 @@ extension GetOrNull<K, V> on Map<K, V> {
 extension GetValue<K, V> on Map<K, V> {
   /// Returns the value for the given [key] or throws a [StateError]
   /// if there is no such key in the `Map`.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hi': 2}.getValue('Hi'); // => 2
@@ -170,14 +170,14 @@ extension GetValue<K, V> on Map<K, V> {
 
 extension IsNullOrEmpty<K, V> on Map<K, V> {
   /// Returns `true` if this [Map] is either `null` or empty.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <int, int>{}.isNullOrEmpty; // => true
   /// <int, int>{}.isNullOrEmpty; // => true
-  /// 
+  ///
   /// <int, int>{0: 1}.isNullOrEmpty; // => false
   /// ```
   bool get isNullOrEmpty => this == null || isEmpty;
@@ -209,9 +209,9 @@ extension MapKeys<K, V> on Map<K, V> {
 extension MapNotNull<K, V> on Map<K, V> {
   /// Returns a lazy [Iterable] containing only the non-null results of applying
   /// the given [transform] function to each entry in the original [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hi': 2, 'Yo': null}.mapNotNull((k, v) => v); // => [2]
@@ -226,9 +226,9 @@ extension MapNotNull<K, V> on Map<K, V> {
 extension MapToIterable<K, V> on Map<K, V> {
   /// Returns a lazy [Iterable] containing the results of applying the given
   /// [transform] function to each entry in the original [Map].
-  /// 
+  ///
   /// Related: [map (Dart)]
-  /// 
+  ///
   /// Example:
   /// ```Dart
   /// <int, int>{1: 2, 3: 4}.mapToIterable((k, v) => k + v); // => (3, 7)
@@ -263,9 +263,9 @@ extension MapValues<K, V> on Map<K, V> {
 extension MaxBy<K, V> on Map<K, V> {
   /// Returns the first entry yielding the largest value of the given function
   /// or `null` if there are no entries.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <int, int>{5: 20, 7: 9}.maxBy((k, v) => k); // => {7: 9}
@@ -281,13 +281,13 @@ extension MaxBy<K, V> on Map<K, V> {
 extension MaxWith<K, V> on Map<K, V> {
   /// Returns the first entry having the largest value according to the
   /// provided [compare] or `null` if there are no entries.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// TODO
-  /// <String, int>{'Hello': 2, 'Yo': 3}.maxWith((k1, v1, k2, v2) => ); // => 
+  /// <String, int>{'Hello': 2, 'Yo': 3}.maxWith((k1, v1, k2, v2) => ); // =>
   /// ```
   Map<K, V> maxWith(BinaryComparator<K, V> compare) {
     ArgumentError.checkNotNull(compare, 'compare');
@@ -306,9 +306,9 @@ extension MaxWith<K, V> on Map<K, V> {
 extension MinBy<K, V> on Map<K, V> {
   /// Returns the first entry yielding the smallest value of the given
   /// [selector] or `null` if there are no entries.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 2, 'Yo': 3}.minBy((k, v) => k.length); // => {'Yo': 3}
@@ -324,9 +324,9 @@ extension MinBy<K, V> on Map<K, V> {
 extension MinWith<K, V> on Map<K, V> {
   /// Returns the first entry having the smallest value according to the
   /// provided [compare] function or `null` if there are no entries.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// TODO
@@ -347,14 +347,14 @@ extension MinWith<K, V> on Map<K, V> {
 
 extension None<K, V> on Map<K, V> {
   /// Returns `true` if no entries match the given [predicate].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 1, 'World': 2}.none((k, v) => k == 'Foo'); // => true
   /// <String, int>{'Hello': 1, 'World': 2}.none((k, v) => v == 42); // => true
-  /// 
+  ///
   /// <String, int>{'Hello': 1, 'World': 2}.none((k, v) => k == 'Hello'); // => false
   /// <String, int>{'Hello': 1, 'World': 2}.none((k, v) => v == 2); // => false
   /// ```
@@ -368,9 +368,9 @@ extension None<K, V> on Map<K, V> {
 extension OnEach<K, V> on Map<K, V> {
   /// Performs the given [action] on each entry and returns
   /// the [Map] itself afterwards.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// TODO
@@ -386,20 +386,20 @@ extension OnEach<K, V> on Map<K, V> {
 
 extension OrEmpty<K, V> on Map<K, V> {
   /// Returns the [Map] if its not `null`, or an empty [Map] otherwise.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// Map map;
   /// final orEmpty = map.orEmpty();
   /// print(map.prEmpty); // => {}
   /// ```
-  /// 
+  ///
   /// ```Dart
   /// Map map = {0: 1};
   /// final orEmpty = map.orEmpty();
-  /// 
+  ///
   /// identical(map, orEmpty); // => true (same Map reference)
   /// ```
   Map<K, V> orEmpty() => this ?? {};
@@ -408,14 +408,14 @@ extension OrEmpty<K, V> on Map<K, V> {
 extension Plus<K, V> on Map<K, V> {
   /// Creates a new [Map] by replacing or adding entries
   /// to this [Map] from another [Map].
-  /// 
+  ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
-  /// 
+  ///
   /// Those entries of another [Map] that are missing in this [Map] are iterated
   /// in the end in the order of that [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 1} + <String, int>{'Hi': 2}; // => {'Hello': 1, 'Hi': 2}
@@ -432,9 +432,9 @@ extension Plus<K, V> on Map<K, V> {
 
 extension ToList<K, V> on Map<K, V> {
   /// Returns a [List] containing all key-value pairs.
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 1, 'World': 2}.toList(); // => [{'Hello': 1}, {'World': 2}]
@@ -444,16 +444,16 @@ extension ToList<K, V> on Map<K, V> {
 
 extension Where<K, V> on Map<K, V> {
   /// Returns a new [Map] containing all key-value pairs matching the given [predicate].
-  /// 
+  ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 1, 'World': 2}.where((k, v) => k.contains('ello'));
   /// // => {'Hello': 1}
-  /// 
+  ///
   /// <String, int>{'Hello': 1, 'World': 2}.where((k, v) => v < 2);
   /// // => {'Hello': 1}
   /// ```
@@ -466,16 +466,16 @@ extension Where<K, V> on Map<K, V> {
 
 extension WhereKeys<K, V> on Map<K, V> {
   /// Returns a [Map] containing all key-value pairs with keys matching the given [predicate].
-  /// 
+  ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 1, 'World': 2}.whereKeys((k) => k.contains('ello'));
   /// // => {'Hello': 1}
-  /// 
+  ///
   /// <String, int>{'Hello': 1, 'Jello': 2}.whereKeys((k) => k.contains('ello'));
   /// // => {'Hello': 1, 'Jello': 2}
   /// ```
@@ -490,11 +490,11 @@ extension WhereKeys<K, V> on Map<K, V> {
 
 extension WhereNot<K, V> on Map<K, V> {
   /// Returns a new [Map] containing all key-value pairs not matching the given [predicate].
-  /// 
+  ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 1, 'Hi': 2}.whereNot((k, v) => k.contains('ello'));
@@ -509,11 +509,11 @@ extension WhereNot<K, V> on Map<K, V> {
 
 extension WhereValues<K, V> on Map<K, V> {
   /// Returns a [Map] containing all key-value pairs with values matching the given [predicate].
-  /// 
+  ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
-  /// 
+  ///
   /// Related: TODO
-  /// 
+  ///
   /// Examples:
   /// ```Dart
   /// <String, int>{'Hello': 2, 'Hi': 1}.whereValues((v) => v > 1);
