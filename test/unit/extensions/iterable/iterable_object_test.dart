@@ -6,6 +6,8 @@ import 'package:kotlin_extensions/iterable.dart';
 import 'package:kotlin_extensions/object.dart';
 import 'package:kotlin_extensions/src/pair.dart';
 
+import '../../util/expect_extensions.dart';
+
 class TestObj {
   int x;
 
@@ -15,35 +17,36 @@ class TestObj {
 void main() {
   group('on Iterable<T>', () {
     group('associate', () {
+      test('throws on null input', () {
+        expectFailsWith<ArgumentError>(() => [].associate(null));
+      });
+
       test('handles an empty iterable', () {
-        expect([].associate((i) => {i: i}), {});
+        [].associate((i) => {i: i}).expectEquals({});
       });
 
       test('returns the correct value', () {
-        expect(
-          ['Hello', 'World', 'Foo'].associate((str) => {str: str.length}),
-          {'Hello': 5, 'World': 5, 'Foo': 3},
-        );
+        ['Hello', 'World', 'Foo']
+            .associate((str) => {str: str.length})
+            .expectEquals({'Hello': 5, 'World': 5, 'Foo': 3});
 
-        expect(['Hello'].associate((s) => {}), {});
+        ['Hello'].associate((s) => {}).expectEquals({});
       });
 
       test('uses the last common key', () {
-        expect([0, 1, 2].associate((i) => {0: i}), {0: 2});
+        [0, 1, 2].associate((i) => {0: i}).expectEquals({0: 2});
       });
 
       test('allows multiple key-value pairs & preserves order', () {
-        expect(
-          [0, 1, 2].associate((i) => {i: i, -i: i}),
-          {0: 0, 1: 1, -1: 1, 2: 2, -2: 2},
-        );
+        [0, 1, 2]
+            .associate((i) => {i: i, -i: i})
+            .expectEquals({0: 0, 1: 1, -1: 1, 2: 2, -2: 2});
       });
 
       test('returns the correct type', () {
-        expect(
-          ['Hello', 'World', 'Foo'].associate((str) => {str: str.length}),
-          isA<Map<String, int>>(),
-        );
+        ['Hello', 'World', 'Foo']
+            .associate((str) => {str: str.length})
+            .expectIsA<Map<String, int>>();
       });
 
       test('passes the correct type', () {
@@ -53,47 +56,48 @@ void main() {
           return {};
         });
 
-        expect(passedValue, isA<String>());
+        passedValue.expectIsA<String>();
 
         <int>[0].associate((s) {
           passedValue = s;
           return {};
         });
 
-        expect(passedValue, isA<int>());
+        passedValue.expectIsA<int>();
       });
     });
 
     group('associateBy', () {
+      test('throws on null input', () {
+        expectFailsWith<ArgumentError>(
+          () => [].associateBy(key: null, value: null),
+        );
+      });
+
       test('handles an empty iterable', () {
-        expect([].associateBy(key: (i) => i, value: (i) => i), {});
+        [].associateBy(key: (i) => i, value: (i) => i).expectEquals({});
       });
 
       test('returns the correct value', () {
-        expect(
-          [0, 1, 2].associateBy(key: (i) => i, value: (i) => '$i'),
-          {0: '0', 1: '1', 2: '2'},
-        );
+        [0, 1, 2]
+            .associateBy(key: (i) => i, value: (i) => '$i')
+            .expectEquals({0: '0', 1: '1', 2: '2'});
 
-        expect(
-          ['Hello', 'World'].associateBy(
-            key: (str) => str.toLowerCase(),
-            value: (str) => str.toUpperCase(),
-          ),
-          {'hello': 'HELLO', 'world': 'WORLD'},
-        );
+        ['Hello', 'World']
+            .associateBy(
+                key: (str) => str.toLowerCase(),
+                value: (str) => str.toUpperCase())
+            .expectEquals({'hello': 'HELLO', 'world': 'WORLD'});
       });
 
       test('returns the correct type', () {
-        expect(
-          [0, 1, 2].associateBy(key: (i) => Object(), value: (i) => '$i'),
-          isA<Map<Object, String>>(),
-        );
+        [0, 1, 2]
+            .associateBy(key: (i) => Object(), value: (i) => '$i')
+            .expectIsA<Map<Object, String>>();
 
-        expect(
-          [0, 1, 2].associateBy(key: (i) => false, value: (i) => Object()),
-          isA<Map<bool, Object>>(),
-        );
+        [0, 1, 2]
+            .associateBy(key: (i) => false, value: (i) => Object())
+            .expectIsA<Map<bool, Object>>();
       });
 
       test('passes the correct type', () {
@@ -103,128 +107,137 @@ void main() {
           value: (i) => passedToValue = i,
         );
 
-        expect(passedToKey, isA<int>());
-        expect(passedToValue, isA<int>());
+        passedToKey.expectIsA<int>();
+        passedToValue.expectIsA<int>();
 
         ['Hello', 'World'].associateBy(
           key: (str) => passedToKey = str,
           value: (str) => passedToValue = str,
         );
 
-        expect(passedToKey, isA<String>());
-        expect(passedToValue, isA<String>());
+        passedToKey.expectIsA<String>();
+        passedToValue.expectIsA<String>();
       });
     });
 
     group('associateWith', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].associateWith(null));
+      });
+
       test('handles an empty iterable', () {
-        expect([].associateWith((i) => i), {});
+        [].associateWith((i) => i).expectEquals({});
       });
 
       test('passes the correct values', () {
-        expect(
-          [0, 1, 2, 3].associateWith((i) => i).keys,
-          [0, 1, 2, 3],
-        );
+        [0, 1, 2, 3].associateWith((i) => i).keys.expectEquals([0, 1, 2, 3]);
       });
 
       test('correctly applies the valueSelector', () {
-        expect(
-          [0, 1, 2, 3].associateWith((i) => -i).values,
-          [0, -1, -2, -3],
-        );
+        [0, 1, 2, 3]
+            .associateWith((i) => -i)
+            .values
+            .expectEquals([0, -1, -2, -3]);
       });
 
       test('returns the correct type', () {
-        expect(
-          [0, 1, 2, 3].associateWith((i) => '${-i}'),
-          isA<Map<int, String>>(),
-        );
+        [0, 1, 2, 3]
+            .associateWith((i) => '${-i}')
+            .expectIsA<Map<int, String>>();
 
-        expect(
-          ['Hello', 'World'].associateWith((str) => str.length),
-          isA<Map<String, int>>(),
-        );
+        ['Hello', 'World']
+            .associateWith((str) => str.length)
+            .expectIsA<Map<String, int>>();
       });
 
       test('passes the correct type', () {
         var passedValue;
         <int>[0].associateWith((i) => passedValue = i);
 
-        expect(passedValue, isA<int>());
+        passedValue.expectIsA<int>();
 
         [''].associateWith((i) => passedValue = i);
 
-        expect(passedValue, isA<String>());
+        passedValue.expectIsA<String>();
       });
     });
 
     group('containsAll', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].containsAll(null)).also(
+          verifyArgumentError(name: 'elements', message: 'Must not be null'),
+        );
+      });
+
       test('handles empty iterables', () {
-        expect([0, 1, 2].containsAll([]), isTrue);
-        expect([].containsAll([0, 1]), isFalse);
-        expect([].containsAll([]), isTrue);
+        [0, 1, 2].containsAll([]).expectIsTrue();
+        [].containsAll([0, 1]).expectIsFalse();
+        [].containsAll([]).expectIsTrue();
       });
 
       test('returns true when it contains all elements', () {
-        expect([0, 1, 2].containsAll([0]), isTrue);
-        expect([0, 1, 2].containsAll([0, 1, 2]), isTrue);
-        expect(['Hello', 'World'].containsAll(['Hello']), isTrue);
+        [0, 1, 2].containsAll([0]).expectIsTrue();
+        [0, 1, 2].containsAll([0, 1, 2]).expectIsTrue();
+        ['Hello', 'World'].containsAll(['Hello']).expectIsTrue();
       });
 
       test('returns false when it does not contain all elements', () {
-        expect([0, 1, 2].containsAll([4]), isFalse);
-        expect([0, 1, 2].containsAll([0, 1, 2, 8]), isFalse);
-        expect(['Hello', 'World'].containsAll(['Hello', 'Foo']), isFalse);
+        [0, 1, 2].containsAll([4]).expectIsFalse();
+        [0, 1, 2].containsAll([0, 1, 2, 8]).expectIsFalse();
+        ['Hello', 'World'].containsAll(['Hello', 'Foo']).expectIsFalse();
       });
     });
 
     group('firstOrNull', () {
       test('returns null when the list is null or empty', () {
-        expect(null.firstOrNull, null);
-        expect([].firstOrNull, null);
+        null.firstOrNull.expectEqualsNull();
+        [].firstOrNull.expectEqualsNull();
       });
 
       test('returns the first element', () {
-        expect([0, 1, 2].firstOrNull, 0);
-        expect(['Hello', 'World'].firstOrNull, 'Hello');
+        [0, 1, 2].firstOrNull.expectEquals(0);
+        ['Hello', 'World'].firstOrNull.expectEquals('Hello');
       });
 
       test('returns the correct type', () {
-        expect(<int>[0].firstOrNull, isA<int>());
-        expect(<num>[0].firstOrNull, isA<num>());
-        expect([''].firstOrNull, isA<String>());
+        <int>[0].firstOrNull.expectIsA<int>();
+        <num>[0].firstOrNull.expectIsA<num>();
+        [''].firstOrNull.expectIsA<String>();
       });
     });
 
     group('flatMap', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].flatMap(null)).also(
+          verifyArgumentError(name: 'transform', message: 'Must not be null'),
+        );
+      });
+
       test('handles an empty iterable', () {
-        expect([].flatMap((i) => [i]), []);
+        [].flatMap((i) => [i]).expectEquals([]);
       });
 
       test('flattens the result', () {
-        expect([1, 2, 3].flatMap((i) => [i, i * 5]), [1, 5, 2, 10, 3, 15]);
-        expect(
-          [
-            [0, 1, 2],
-            [3, 4, 5],
-          ].flatMap((i) => i),
-          [0, 1, 2, 3, 4, 5],
-        );
+        [1, 2, 3].flatMap((i) => [i, i * 5]).expectEquals([1, 5, 2, 10, 3, 15]);
+
+        [
+          [0, 1, 2],
+          [3, 4, 5],
+        ].flatMap((i) => i).expectEquals([0, 1, 2, 3, 4, 5]);
       });
 
       test('applies transform', () {
-        expect([0, 1, 2].flatMap((i) => [i + 2]), [2, 3, 4]);
-        expect(
-          ['t', 'e', 's', 't'].flatMap((i) => [i, '.']),
-          ['t', '.', 'e', '.', 's', '.', 't', '.'],
-        );
+        [0, 1, 2].flatMap((i) => [i + 2]).expectEquals([2, 3, 4]);
+
+        ['t', 'e', 's', 't']
+            .flatMap((i) => [i, '.'])
+            .expectEquals(['t', '.', 'e', '.', 's', '.', 't', '.']);
       });
 
       test('results in the correct type', () {
-        expect(<int>[].flatMap((e) => [e]), isA<Iterable<int>>());
-        expect(<int>[].flatMap((e) => ['$e']), isA<Iterable<String>>());
-        expect(<String>[].flatMap((e) => [Object()]), isA<Iterable<Object>>());
+        [].flatMap((e) => [e].expectIsA<Iterable<int>>());
+        [].flatMap((e) => ['$e'].expectIsA<Iterable<String>>());
+        [].flatMap((e) => [Object()].expectIsA<Iterable<Object>>());
       });
 
       test('passes the correct type', () {
@@ -234,18 +247,22 @@ void main() {
           return [];
         }).toList();
 
-        expect(passedValue, isA<int>());
+        passedValue.expectIsA<int>();
 
         [''].flatMap((str) {
           passedValue = str;
           return [];
         }).toList();
 
-        expect(passedValue, isA<String>());
+        passedValue.expectIsA<String>();
       });
     });
 
     group('forEachIndexed', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].forEachIndexed(null));
+      });
+
       test('handles an empty iterable', () {
         expect(() => [].forEachIndexed((i, e) {}), returnsNormally);
       });
@@ -301,6 +318,10 @@ void main() {
     });
 
     group('groupBy', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].groupBy(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].groupBy((s) => s), {});
       });
@@ -370,8 +391,12 @@ void main() {
     });
 
     group('mapIndexed', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].mapIndexed(null));
+      });
+
       test('handles an empty iterable', () {
-        expect([].map((i) => i), []);
+        expect([].mapIndexed((i, j) => i), []);
       });
 
       test('passes the correct indices (starting with 0)', () {
@@ -418,6 +443,10 @@ void main() {
     });
 
     group('mapIndexedNotNull', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].mapIndexedNotNull(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].mapIndexedNotNull((i, e) => e), []);
       });
@@ -484,6 +513,10 @@ void main() {
     });
 
     group('mapNotNull', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].mapNotNull(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].mapNotNull((e) => e), []);
       });
@@ -525,6 +558,10 @@ void main() {
     });
 
     group('maxBy', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].maxBy(null));
+      });
+
       test('handles an empty iterable', () {
         expect(<int>[].maxBy((i) => i), isNull);
       });
@@ -563,6 +600,10 @@ void main() {
     });
 
     group('maxWith', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].maxWith(null));
+      });
+
       test('handles an empty iterable', () {
         expect(<int>[].maxWith((i, j) => 1), isNull);
       });
@@ -615,6 +656,10 @@ void main() {
     });
 
     group('minBy', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].minBy(null));
+      });
+
       test('handles an empty iterable', () {
         expect(<int>[].minBy((i) => i), null);
       });
@@ -643,6 +688,10 @@ void main() {
     });
 
     group('minWith', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].maxWith(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].minWith((i, j) => 1), null);
       });
@@ -692,7 +741,21 @@ void main() {
       });
     });
 
+    group('none', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].none(null));
+      });
+
+      test('handles an empty iterable', () {
+        [].none((i) => false).expectEquals(true);
+      });
+    });
+
     group('partition', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].partition(null));
+      });
+
       test('handles an empty iterable', () {
         [].partition((i) => false).let((pair) {
           expect(pair.first, []);
@@ -729,28 +792,30 @@ void main() {
     });
 
     group('reduceIndexed', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [0].reduceIndexed(null));
+      });
+
       test('throws when empty', () {
-        expect(
-          () => [].reduceIndexed((i, e, e2) => 0),
-          throwsStateError,
-        );
+        expectFailsWith<StateError>(() => [].reduceIndexed((i, e, e2) => 0));
       });
 
       test('returns the correct value', () {
-        expect(
-          [0, 1, 2].reduceIndexed((index, e1, e2) => index + e1 + e2),
-          6, // (1 + 0 + 1) => (2 + 2 + 2) => 6
-        );
+        // (1 + 0 + 1) => (2 + 2 + 2) => 6
+        [0, 1, 2].reduceIndexed((index, e1, e2) => index + e1 + e2).expect(6);
 
-        expect(
-          ['H', 'E', 'L', 'L', 'O']
-              .reduceIndexed((index, e1, e2) => '$e1$e2-$index'),
-          'HE-1L-2L-3O-4',
-        );
+        ['H', 'E', 'L', 'L', 'O']
+            .reduceIndexed((index, e1, e2) => '$e1$e2-$index')
+            .expect('HE-1L-2L-3O-4');
       });
     });
 
     group('reduceIndexedOrNull', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].reduceIndexedOrNull(null));
+        expectFailsWith<ArgumentError>(() => [0].reduceIndexedOrNull(null));
+      });
+
       test('returns null when the iterable is empty', () {
         expect([].reduceIndexedOrNull((index, e1, e2) => 0), isNull);
       });
@@ -770,6 +835,10 @@ void main() {
     });
 
     group('whereIndexed', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].whereIndexed(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].whereIndexed((i, e) => true), []);
       });
@@ -831,6 +900,10 @@ void main() {
     });
 
     group('whereIsNotNull', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].whereIsNotNull(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].whereIsNotNull((i) => i), []);
       });
@@ -859,6 +932,10 @@ void main() {
     });
 
     group('whereNot', () {
+      test('throws ArgumentError when passed null', () {
+        expectFailsWith<ArgumentError>(() => [].whereNot(null));
+      });
+
       test('handles an empty iterable', () {
         expect([].whereNot((i) => true), []);
       });

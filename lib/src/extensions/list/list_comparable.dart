@@ -11,7 +11,6 @@ extension Sorted<T extends Comparable> on List<T> {
   List<T> sorted() => toList()..sort();
 }
 
-// TODO: why not Comparable<T>?
 extension SortedDescending<T extends Comparable> on List<T> {
   /// Returns a [List] of all elements sorted descending according to their natural sort order.
   ///

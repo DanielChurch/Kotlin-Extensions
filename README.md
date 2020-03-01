@@ -31,7 +31,7 @@ The extensions are:
     - Familiar to existing Dart functionality
     - Easy to adopt
     - `Iterable` -> `Iterable` methods are lazy
-  - Fully tested
+  - Fully tested with meaningful coverage
   - Well documentented
   - Built to be compatable with other similar libraries
     - `show`/`hide` anything extension you would like on an individual basis

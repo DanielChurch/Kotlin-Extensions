@@ -1,11 +1,11 @@
 import 'package:kotlin_extensions/typedefs.dart';
 
+import '../function/function_predicate.dart';
 import '../iterable/iterable_map.dart';
 import '../iterable/iterable_object.dart';
-import '../object/object.dart';
 
 // TODO: should we copy the doc string here too?
-extension Get<K, V> on Map<K, V> {
+extension GetOrNull<K, V> on Map<K, V> {
   /// Returns the value corresponding to the given [key],
   /// or `null` if such a [key] is not present in the [Map].
   ///
@@ -16,11 +16,15 @@ extension Get<K, V> on Map<K, V> {
   /// final m = {'Hello': {'World': {'Foo': {'Bar': 5}}}};
   /// final m2 = {'Hello': {'World': {'Baz': {'Bar': 5}}}};
   ///
-  /// print(m?.get('Hello')?.get('World')?.get('Foo')?.get('Bar')); // 5
-  /// print(m2?.get('Hello')?.get('World')?.get('Foo')?.get('Bar')); // null
+  /// print(m?.getOrNull('Hello')?.getOrNull('World')?.getOrNull('Foo')?.getOrNull('Bar')); // 5
+  /// print(m2?.getOrNull('Hello')?.getOrNull('World')?.getOrNull('Foo')?.getOrNull('Bar')); // null
   /// ```
-  V get(K key) =>
-      this[key]; // TODO: is `get` bad to use since it's a reserved keyword?
+  V getOrNull(K key) => this[key];
+
+  // TODO
+  // V valueFor(K key) => this[key];
+  // V valueAt(K key) => this[key];
+  // V get(K key) => this[key];
 }
 
 extension GetOrDefault<K, V> on Map<K, V> {
@@ -38,7 +42,6 @@ extension GetOrDefault<K, V> on Map<K, V> {
 }
 
 extension GetOrElse<K, V> on Map<K, V> {
-  // TODO: should this be part of `get` to align with Dart? (eg. firstWhere(() {}, orElse: () {}))
   /// Returns the value for the given [key], or the result of the
   /// [defaultValue] function if there was no entry for the given [key].
   ///
@@ -50,25 +53,9 @@ extension GetOrElse<K, V> on Map<K, V> {
   /// <String, int>{'Hello': 5}.getOrElse('Hello', () => 42); // 5
   /// ```
   V getOrElse(K key, V Function() defaultValue) {
-    return this[key] ?? defaultValue();
-  }
-}
+    ArgumentError.checkNotNull(defaultValue, 'defaultValue');
 
-extension MapValues<K, V> on Map<K, V> {
-  /// Returns a new [Map] with [entries] having the keys of this [Map] and the
-  /// [values] obtained by applying the [transform] function to each entry in this [Map].
-  ///
-  /// The returned [Map] preserves the entry iteration order of the original [Map].
-  ///
-  /// Related: [mapKeys]
-  ///
-  /// Examples:
-  /// ```Dart
-  /// {0: 1, 2: 3}.mapValues((v) => v * 2); // => {0: 2, 2: 6}
-  /// {'Hello': 'World'}.mapValues((v) => '$v$v'); // => {'Hello': 'WorldWorld'}
-  /// ```
-  Map<K, R> mapValues<R>(Transform<V, R> transform) {
-    return Map.fromIterables(keys, values.map(transform));
+    return this[key] ?? defaultValue();
   }
 }
 
@@ -89,17 +76,47 @@ extension MapKeys<K, V> on Map<K, V> {
   /// {0: 1, 2: 3}.mapKeys((i) => 0); // => {0: 3}
   /// ```
   Map<R, V> mapKeys<R>(Transform<K, R> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
     return Map.fromIterables(keys.map(transform), values);
+  }
+}
+
+extension MapValues<K, V> on Map<K, V> {
+  /// Returns a new [Map] with [entries] having the keys of this [Map] and the
+  /// [values] obtained by applying the [transform] function to each entry in this [Map].
+  ///
+  /// The returned [Map] preserves the entry iteration order of the original [Map].
+  ///
+  /// Related: [mapKeys]
+  ///
+  /// Examples:
+  /// ```Dart
+  /// {0: 1, 2: 3}.mapValues((v) => v * 2); // => {0: 2, 2: 6}
+  /// {'Hello': 'World'}.mapValues((v) => '$v$v'); // => {'Hello': 'WorldWorld'}
+  /// ```
+  Map<K, R> mapValues<R>(Transform<V, R> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
+    return Map.fromIterables(keys, values.map(transform));
   }
 }
 
 // TODO: add documentation below
 
+extension MapToIterable<K, V> on Map<K, V> {
+  Iterable<T> mapToIterable<T>(BinaryTransform<K, V, T> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
+    return asIterable().map((m) => transform(m.keys.single, m.values.single));
+  }
+}
+
 extension Any<K, V> on Map<K, V> {
-  bool any(Predicate<Map<K, V>> predicate) {
+  bool any(BinaryPredicate<K, V> predicate) {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
-    return asIterable().any(predicate);
+    return asIterable().any(predicate.toUnary());
   }
 }
 
@@ -108,32 +125,36 @@ extension AsIterable<K, V> on Map<K, V> {
 }
 
 extension Copy<K, V> on Map<K, V> {
-  Map<K, V> copy() => Map.from(this); // TODO: name `toMap`?
+  Map<K, V> copy() => Map.from(this);
+
+  // TODO:
+  // Map<K, V> toMap() => Map.from(this);
+  // Map<K, V> clone() => Map.from(this);
 }
 
 extension Every<K, V> on Map<K, V> {
-  bool every(Predicate<Map<K, V>> predicate) {
+  bool every(BinaryPredicate<K, V> predicate) {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
-    return asIterable().every(predicate);
+    return asIterable().every(predicate.toUnary());
   }
 }
 
 extension FlatMap<K, V> on Map<K, V> {
-  Iterable<R> flatMap<R>(Transform<Map<K, V>, Iterable<R>> transform) {
+  Iterable<R> flatMap<R>(BinaryTransform<K, V, Iterable<R>> transform) {
     ArgumentError.checkNotNull(transform, 'transform');
 
-    return asIterable().flatMap(transform);
+    return asIterable().flatMap(transform.toUnary());
   }
 }
 
 extension GetValue<K, V> on Map<K, V> {
   V getValue(K key) {
-    final result = get(key);
+    final result = getOrNull(key);
 
     if (result == null) throw StateError('No Element');
 
-    return get(key);
+    return getOrNull(key);
   }
 }
 
@@ -141,75 +162,88 @@ extension IsNullOrEmpty<K, V> on Map<K, V> {
   bool get isNullOrEmpty => this == null || isEmpty;
 }
 
-extension Length<K, V> on Map<K, V> {
-  int get length => keys.length;
-}
-
 extension MapNotNull<K, V> on Map<K, V> {
-  Iterable<R> mapNotNull<R>(Transform<Map<K, V>, R> transform) {
+  Iterable<R> mapNotNull<R>(BinaryTransform<K, V, R> transform) {
     ArgumentError.checkNotNull(transform, 'transform');
 
-    return asIterable().mapNotNull(transform);
+    return asIterable().mapNotNull(transform.toUnary());
   }
 }
 
 extension MaxBy<K, V> on Map<K, V> {
-  Map<K, V> maxBy<R extends Comparable<R>>(Selector<Map<K, V>, R> selector) {
-    // TODO: why not Comparable<T>?
+  Map<K, V> maxBy<R extends Comparable>(BinarySelector<K, V, R> selector) {
     ArgumentError.checkNotNull(selector, 'selector');
 
-    return asIterable().maxBy(selector);
+    return asIterable().maxBy(selector.toUnary());
   }
 }
 
 extension MaxWith<K, V> on Map<K, V> {
-  Map<K, V> maxWith(Comparator<Map<K, V>> compare) {
+  Map<K, V> maxWith(BinaryComparator<K, V> compare) {
     ArgumentError.checkNotNull(compare, 'compare');
 
-    return asIterable().maxWith(compare);
+    return asIterable().maxWith((m1, m2) {
+      return compare(
+        m1.keys.single,
+        m1.values.single,
+        m2.keys.single,
+        m2.values.single,
+      );
+    });
   }
 }
 
 extension MinBy<K, V> on Map<K, V> {
-  Map<K, V> minBy<R extends Comparable<R>>(Selector<Map<K, V>, R> selector) {
-    // TODO: why not Comparable<T>?
+  Map<K, V> minBy<R extends Comparable>(BinarySelector<K, V, R> selector) {
     ArgumentError.checkNotNull(selector, 'selector');
 
-    return asIterable().minBy(selector);
+    return asIterable().minBy(selector.toUnary());
   }
 }
 
 extension MinWith<K, V> on Map<K, V> {
-  Map<K, V> minWith(Comparator<Map<K, V>> compare) {
-    ArgumentError.checkNotNull(compare, 'comapre');
+  // TODO:
+  Map<K, V> minWith(BinaryComparator<K, V> compare) {
+    ArgumentError.checkNotNull(compare, 'compare');
 
-    return asIterable().minWith(compare);
+    return asIterable().minWith((m1, m2) {
+      return compare(
+        m1.keys.single,
+        m1.values.single,
+        m2.keys.single,
+        m2.values.single,
+      );
+    });
   }
 }
 
 extension None<K, V> on Map<K, V> {
-  bool none(Predicate<Map<K, V>> predicate) {
+  bool none(BinaryPredicate<K, V> predicate) {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
-    return asIterable().none(predicate);
+    return asIterable().none(predicate.toUnary());
   }
 }
 
 extension OnEach<K, V> on Map<K, V> {
-  Map<K, V> onEach(Action<Map<K, V>> action) {
+  Map<K, V> onEach(BinaryAction<K, V> action) {
     ArgumentError.checkNotNull(action, 'action');
 
-    return also((Map<K, V> map) => map.asIterable().forEach(action));
+    asIterable().forEach(action.toUnary());
+
+    return this;
   }
 }
 
 extension OrEmpty<K, V> on Map<K, V> {
-  Map<K, V> orEmpty() => isNullOrEmpty ? {} : this;
+  Map<K, V> orEmpty() => this ?? {};
 }
 
 extension Plus<K, V> on Map<K, V> {
   Map<K, V> operator +(Map<K, V> rhs) {
-    if (rhs == null) throw ArgumentError('both maps must not be null');
+    if (this == null || rhs == null) {
+      throw ArgumentError('both maps must not be null');
+    }
 
     return copy()..addAll(rhs);
   }
@@ -220,10 +254,10 @@ extension ToList<K, V> on Map<K, V> {
 }
 
 extension Where<K, V> on Map<K, V> {
-  Map<K, V> where(Predicate<Map<K, V>> predicate) {
+  Map<K, V> where(BinaryPredicate<K, V> predicate) {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
-    return asIterable().where(predicate).toMap();
+    return asIterable().where(predicate.toUnary()).toMap();
   }
 }
 
@@ -238,10 +272,10 @@ extension WhereKeys<K, V> on Map<K, V> {
 }
 
 extension WhereNot<K, V> on Map<K, V> {
-  Map<K, V> whereNot(Predicate<Map<K, V>> predicate) {
+  Map<K, V> whereNot(BinaryPredicate<K, V> predicate) {
     ArgumentError.checkNotNull(predicate, 'predicate');
 
-    return where((Map<K, V> element) => !predicate(element));
+    return where(predicate.negate());
   }
 }
 

@@ -1,11 +1,13 @@
+import 'package:kotlin_extensions/src/util/generic_object_helper.dart';
 import 'package:meta/meta.dart';
 
-import 'package:kotlin_extensions/pair.dart';
-import 'package:kotlin_extensions/typedefs.dart';
+import '../../pair.dart';
+import '../../typedefs.dart';
+import '../../util/errors/argument_error.dart';
+import '../function/function_predicate.dart';
+import '../object/object.dart';
 
 import 'iterable_map.dart';
-
-bool _isNotNull<T>(T element) => element != null;
 
 extension Associate<T> on Iterable<T> {
   /// Returns a [Map] containing key-value pairs provided by the [transform]
@@ -25,6 +27,8 @@ extension Associate<T> on Iterable<T> {
   /// [0, 1].associate((i) => {i: '$i', -i: '$i'}); // => {0: '0', 1: '1', -1: '1'}
   /// ```
   Map<K, V> associate<K, V>(Transform<T, Map<K, V>> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
     return map(transform).toMap();
   }
 }
@@ -49,6 +53,8 @@ extension AssociateBy<T> on Iterable<T> {
     @required Transform<T, K> key,
     @required Transform<T, V> value,
   }) {
+    checkAllNotNull({'key': key, 'value': value});
+
     return {for (final element in this) key(element): value(element)};
   }
 }
@@ -69,6 +75,8 @@ extension AssociateWith<T> on Iterable<T> {
   /// // => {'a': 1, 'abc': 3, 'ab': 2, 'def': 3, 'abcd': 4}
   /// ```
   Map<T, V> associateWith<V>(Selector<T, V> valueSelector) {
+    ArgumentError.checkNotNull(valueSelector, 'valueSelector');
+
     return {for (final element in this) element: valueSelector(element)};
   }
 }
@@ -81,7 +89,11 @@ extension ContainsAll<T> on Iterable<T> {
   /// [0, 1, 2].containsAll([0, 1]); // => true
   /// [0, 1, 3].containsAll([0, 1, 4]); // => false
   /// ```
-  bool containsAll(Iterable<T> elements) => elements.every(contains);
+  bool containsAll(Iterable<T> elements) {
+    ArgumentError.checkNotNull(elements, 'elements');
+
+    return elements.every(contains);
+  }
 }
 
 extension FirstOrNull<T> on Iterable<T> {
@@ -109,6 +121,8 @@ extension FlatMap<T> on Iterable<T> {
   /// [0, 1, 2].flatMap((i) => [i, i + 5]); // => (0, 5, 1, 6, 2, 7)
   /// ```
   Iterable<R> flatMap<R>(Transform<T, Iterable<R>> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
     return expand(transform);
   }
 }
@@ -129,6 +143,8 @@ extension ForEachIndexed<T> on Iterable<T> {
   /// // World 1
   /// ```
   void forEachIndexed(IndexedAction<T> indexedAction) {
+    ArgumentError.checkNotNull(indexedAction, 'indexedAction');
+
     var index = 0;
 
     forEach((T element) => indexedAction(index++, element));
@@ -149,15 +165,15 @@ extension GroupBy<T> on Iterable<T> {
   /// // => {1: [a], 3: [abc, def], 2: [ab], 4: [abcd]}
   /// ```
   Map<R, List<T>> groupBy<R>(Selector<T, R> keySelector) {
-    final output = <R, List<T>>{};
+    ArgumentError.checkNotNull(keySelector, 'keySelector');
 
-    forEach((element) {
-      final key = keySelector(element);
-      output[key] ??= [];
-      output[key].add(element);
+    return <R, List<T>>{}.also((output) {
+      forEach((element) {
+        final key = keySelector(element);
+        output[key] ??= [];
+        output[key].add(element);
+      });
     });
-
-    return output;
   }
 }
 
@@ -200,6 +216,8 @@ extension MapIndexed<T> on Iterable<T> {
   /// }); // => ('Hello 0', 'World 1')
   /// ```
   Iterable<R> mapIndexed<R>(IndexedTransform<T, R> indexedTransform) {
+    ArgumentError.checkNotNull(indexedTransform, 'indexedTransform');
+
     var index = 0;
 
     return map((T element) => indexedTransform(index++, element));
@@ -223,6 +241,8 @@ extension MapIndexedNotNull<T> on Iterable<T> {
   /// }); // => ('Hello 0', 'World 2')
   /// ```
   Iterable<R> mapIndexedNotNull<R>(IndexedTransform<T, R> indexedTransform) {
+    ArgumentError.checkNotNull(indexedTransform, 'indexedTransform');
+
     return mapIndexed(indexedTransform).whereNotNull();
   }
 }
@@ -244,6 +264,8 @@ extension MapNotNull<T> on Iterable<T> {
   /// }); // => (1, 3)
   /// ```
   Iterable<R> mapNotNull<R>(Transform<T, R> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
     return map(transform).whereNotNull();
   }
 }
@@ -260,7 +282,8 @@ extension MaxBy<T> on Iterable<T> {
   /// data.keys.maxBy((i) => data[i]); // => 'World'
   /// ```
   T maxBy<R extends Comparable>(Selector<T, R> selector) {
-    // TODO: why not Comparable<T> // TODO: wrong file?
+    ArgumentError.checkNotNull(selector, 'selector');
+
     return reduceOrNull((i, j) {
       return selector(i).compareTo(selector(j)) >= 0 ? i : j;
     });
@@ -279,6 +302,8 @@ extension MaxWith<T> on Iterable<T> {
   /// [0, 1, 2].maxWith((i, j) => i < j ? 1 : -1); // => 0
   /// ```
   T maxWith(Comparator<T> comparator) {
+    ArgumentError.checkNotNull(comparator, 'comparator');
+
     return reduceOrNull((i, j) => comparator(i, j) >= 0 ? i : j);
   }
 }
@@ -295,7 +320,8 @@ extension MinBy<T> on Iterable<T> {
   /// data.keys.minBy((i) => data[i]); // => 'Hello'
   /// ```
   T minBy<R extends Comparable>(Selector<T, R> selector) {
-    // TODO: // TODO: why not Comparable<T>? TODO: wrong file?
+    ArgumentError.checkNotNull(selector, 'selector');
+
     return reduceOrNull((i, j) {
       return selector(i).compareTo(selector(j)) <= 0 ? i : j;
     });
@@ -314,13 +340,27 @@ extension MinWith<T> on Iterable<T> {
   /// [0, 1, 2].minWith((i, j) => i < j ? 1 : -1); // => 2
   /// ```
   T minWith(Comparator<T> comparator) {
+    ArgumentError.checkNotNull(comparator, 'comparator');
+
     return reduceOrNull((i, j) => comparator(i, j) <= 0 ? i : j);
   }
 }
 
 extension None<T> on Iterable<T> {
-  // TODO
-  bool none(Predicate<T> predicate) => !any(predicate);
+  /// Returns `true` if no elements match the given [predicate].
+  ///
+  /// Related: [any], [every]
+  ///
+  /// Examples:
+  /// ```Dart
+  /// [0, 1, 2].none((i) => i == 5); // => true
+  /// [0, 1, 2].none((i) => i == 2); // => false
+  /// ```
+  bool none(Predicate<T> predicate) {
+    ArgumentError.checkNotNull(predicate, 'predicate');
+
+    return !any(predicate);
+  }
 }
 
 extension Partition<T> on Iterable<T> {
@@ -337,6 +377,8 @@ extension Partition<T> on Iterable<T> {
   /// // => Pair(('Hello', 'World', 'Foo'), ('Bar'))
   /// ```
   Pair<Iterable<T>, Iterable<T>> partition(Predicate<T> predicate) {
+    ArgumentError.checkNotNull(predicate, 'predicate');
+
     return Pair(where(predicate), whereNot(predicate));
   }
 }
@@ -362,7 +404,9 @@ extension ReduceIndexed<T> on Iterable<T> {
   /// [0, 1, 2].reduceIndexed((index, first, second) => index + first + second);
   /// // => (1, 0, 1) => (2, 2, 2) => 6
   /// ```
-  T reduceIndexed(IndexedCombinator<T> indexedCombine) {
+  T reduceIndexed(IndexedCombine<T> indexedCombine) {
+    ArgumentError.checkNotNull(indexedCombine, 'indexedCombine');
+
     var index = 1;
 
     return reduce((i, j) => indexedCombine(index++, i, j));
@@ -390,7 +434,9 @@ extension ReduceIndexedOrNull<T> on Iterable<T> {
   /// [0, 1, 2].reduceIndexedOrNull((index, first, second) => index + first + second);
   /// // => (1, 0, 1) => (2, 2, 2) => 6
   /// ```
-  T reduceIndexedOrNull(IndexedCombinator<T> combine) {
+  T reduceIndexedOrNull(IndexedCombine<T> combine) {
+    ArgumentError.checkNotNull(combine, 'combine');
+
     var index = 1;
 
     return reduceOrNull((i, j) => combine(index++, i, j));
@@ -412,10 +458,12 @@ extension ReduceOrNull<T> on Iterable<T> {
   /// [5].reduceOrNull((i, j) => j); // => 5
   /// [0, 1, 2].reduceOrNull((first, second) => first + second); // => 3
   /// ```
-  T reduceOrNull(T Function(T element1, T element2) reducer) {
-    if (isEmpty || reducer == null) return null;
+  T reduceOrNull(Combine<T> combine) {
+    ArgumentError.checkNotNull(combine, 'combine');
 
-    return reduce(reducer);
+    if (isEmpty) return null;
+
+    return reduce(combine);
   }
 }
 
@@ -431,11 +479,19 @@ extension WhereIndexed<T> on Iterable<T> {
   /// }); // => ('Hello', 'World')
   /// ```
   Iterable<T> whereIndexed(IndexedPredicate<T> indexedPredicate) {
+    ArgumentError.checkNotNull(indexedPredicate, 'indexedPredicate');
+
     var index = 0;
 
     return where((T element) => indexedPredicate(index++, element));
   }
 }
+
+// extension WhereIs<T> on Iterable<T> {
+//   Iterable<T> whereIs<R>(Transform<T, R> transform) {
+//     return where((T element) => transform(element));
+//   }
+// }
 
 extension WhereIsNotNull<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing all elements of the original [Iterable]
@@ -451,6 +507,8 @@ extension WhereIsNotNull<T> on Iterable<T> {
   /// [0, 1].whereIsNotNull((i) => i == 0 ? null : i); // => (1)
   /// ```
   Iterable<T> whereIsNotNull<R>(Transform<T, R> transform) {
+    ArgumentError.checkNotNull(transform, 'transform');
+
     return where((T element) => transform(element) != null);
   }
 }
@@ -465,7 +523,11 @@ extension WhereNot<T> on Iterable<T> {
   /// [0, 1, 2, 3].whereNot((i) => i == 2); // => (0, 1, 3)
   /// ['Hello', 'Foo', 'World'].filterNot((i) => i == 'Foo'); // => ('Hello', 'World')
   /// ```
-  Iterable<T> whereNot(Predicate<T> predicate) => where((e) => !predicate(e));
+  Iterable<T> whereNot(Predicate<T> predicate) {
+    ArgumentError.checkNotNull(predicate, 'predicate');
+
+    return where(predicate.negate());
+  }
 }
 
 extension WhereNotNull<T> on Iterable<T> {
@@ -477,5 +539,5 @@ extension WhereNotNull<T> on Iterable<T> {
   /// ```Dart
   /// [0, null, 1].whereNotNull(); // => (0, 1)
   /// ```
-  Iterable<T> whereNotNull() => where(_isNotNull);
+  Iterable<T> whereNotNull() => where(isNotNull);
 }

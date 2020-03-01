@@ -11,6 +11,8 @@ extension Also<T> on T {
   /// }
   /// ```
   T also(Block<T, void> block) {
+    ArgumentError.checkNotNull(block, 'block');
+
     block(this);
 
     return this;
@@ -34,5 +36,9 @@ extension Let<T> on T {
   ///
   /// reverse('Hello'); // => 'olleH'
   /// ```
-  R let<R>(Block<T, R> block) => block(this);
+  R let<R>(Block<T, R> block) {
+    ArgumentError.checkNotNull(block, 'block');
+
+    return block(this);
+  }
 }

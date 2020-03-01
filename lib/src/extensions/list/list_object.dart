@@ -1,5 +1,7 @@
 import 'package:kotlin_extensions/typedefs.dart';
 
+import 'package:kotlin_extensions/map.dart';
+
 extension Distinct<T> on List<T> {
   /// Returns a [List] containing only distinct elements from the given collection.
   ///
@@ -23,9 +25,13 @@ extension DistinctBy<T> on List<T> {
   /// [0, 1, 2, 3].distinctBy((i) => i % 2); // => [0, 1]
   /// ```
   List<T> distinctBy<R>(Selector<T, R> selector) {
+    ArgumentError.checkNotNull(selector, 'selector');
+
     final cache = {for (final element in reversed) selector(element): element};
 
-    return cache.keys.toList().reversed.toSet().map((v) => cache[v]).toList();
+    final getOrNull = GetOrNull(cache).getOrNull;
+
+    return cache.keys.toList().reversed.toSet().map(getOrNull).toList();
   }
 }
 
@@ -41,7 +47,8 @@ extension SortedBy<T> on List<T> {
   /// 1, 2, 3].sortedBy((i) => -i); // => [3, 2, 1]
   /// ```
   List<T> sortedBy<R extends Comparable>(Selector<T, R> selector) {
-    // TODO: why not Comparable<T>?
+    ArgumentError.checkNotNull(selector, 'selector');
+
     // Only run `selector` once per element
     final cache = {for (final element in this) element: selector(element)};
 
@@ -61,7 +68,8 @@ extension SortedByDescending<T> on List<T> {
   /// ['Foo', 'Hello', 'Four'].sortedByDescending((str) => str.length); // => ['Hello', 'Four', 'Foo']
   /// ```
   List<T> sortedByDescending<R extends Comparable>(Selector<T, R> selector) {
-    // TODO: why not Comparable<T>?
+    ArgumentError.checkNotNull(selector, 'selector');
+
     return sortedBy(selector).reversed.toList();
   }
 }

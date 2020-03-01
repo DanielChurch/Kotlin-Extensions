@@ -1,5 +1,3 @@
-import '../object/object.dart';
-
 extension ToMap<K, V> on Iterable<Map<K, V>> {
   /// Returns a new [Map] containing all key-value pairs from the given collection.
   ///
@@ -12,5 +10,11 @@ extension ToMap<K, V> on Iterable<Map<K, V>> {
   /// [0, 1, 2, 3].map((i) => {i: i + 1}).toMap(); // => {0: 1, 1: 2, 2: 3, 3: 4}
   /// [{'Hello': 'Foo'}, {'Hello': 'World'}].toMap(); // => {'Hello': 'World'}
   /// ```
-  Map<K, V> toMap() => <K, V>{}.also((output) => forEach(output.addAll));
+  Map<K, V> toMap() {
+    final output = <K, V>{};
+
+    forEach(output.addAll);
+
+    return output;
+  }
 }

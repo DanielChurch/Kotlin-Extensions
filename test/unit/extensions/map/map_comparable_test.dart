@@ -1,6 +1,11 @@
+@TestOn('vm')
+
 import 'package:kotlin_extensions/map.dart';
-import 'package:kotlin_extensions/iterable.dart';
+
+import 'package:test/test.dart';
 
 void main() {
-  <String, int>{}.flatMap(null);
+  group('on Map<T extends Comparable>', () {
+    //
+  });
 }

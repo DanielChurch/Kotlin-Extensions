@@ -1,5 +1,7 @@
 import 'iterable_object.dart';
 
+T _sum<T extends num>(T first, T second) => first + second;
+
 extension Sum<T extends num> on Iterable<T> {
   /// Returns the sum of all elements in the collection.
   ///
@@ -10,7 +12,7 @@ extension Sum<T extends num> on Iterable<T> {
   /// <num>[].sum; // => null
   /// [1, 2, 3].sum; // => 6
   /// ```
-  num get sum => reduceOrNull((i, j) => i + j) ?? 0;
+  num get sum => reduceOrNull(_sum) ?? 0;
 }
 
 extension Average<T extends num> on Iterable<T> {

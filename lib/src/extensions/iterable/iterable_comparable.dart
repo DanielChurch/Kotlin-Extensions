@@ -1,6 +1,8 @@
-import 'iterable_object.dart';
+import 'package:kotlin_extensions/src/extensions/iterable/iterable_object.dart'
+    show ReduceOrNull;
+import 'package:kotlin_extensions/src/util/generic_compareable_helper.dart'
+    show genericMax, genericMin;
 
-// TODO: why not Comparable<T>?
 extension Max<T extends Comparable> on Iterable<T> {
   /// Returns the largest element or `null` if there are no elements.
   ///
@@ -11,10 +13,9 @@ extension Max<T extends Comparable> on Iterable<T> {
   /// [8, 10, 2].max; // => 10
   /// [].max; // => null
   /// ```
-  T get max => reduceOrNull((i, j) => i.compareTo(j) > 0 ? i : j);
+  T get max => reduceOrNull(genericMax);
 }
 
-// TODO: why not Comparable<T>?
 extension Min<T extends Comparable> on Iterable<T> {
   /// Returns the smallest element or `null` if there are no elements.
   ///
@@ -25,5 +26,5 @@ extension Min<T extends Comparable> on Iterable<T> {
   /// [8, 10, 2].min; // => 2
   /// [].min; // => null
   /// ```
-  T get min => reduceOrNull((i, j) => i.compareTo(j) < 0 ? i : j);
+  T get min => reduceOrNull(genericMin);
 }
