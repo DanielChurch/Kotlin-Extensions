@@ -56,6 +56,8 @@ On `List<T extends Comparable>`: [sorted](doc/list.md#sorted), [sortedDescending
 
 On `Map<K, V>`: [get](doc/map.md#get), [getOrDefault](doc/map.md#getOrDefault), [getOrElse](doc/map.md#getOrElse), [mapKeys](doc/map.md#mapKeys), [mapValues](doc/map.md#mapValues)
 
+On `bool Function(T)` & `bool Function(K, V)`: [and](doc/function.md#and), [negate](doc/function.md#negate), [or](doc/function.md#or)
+
 ## Requirements
 
 This project adds extension methods, an addition from Dart SDK `2.7.0`. Your project must have a lower sdk bound of at least `^2.7.0`.
