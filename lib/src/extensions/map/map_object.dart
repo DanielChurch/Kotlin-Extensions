@@ -1,9 +1,10 @@
+import 'package:kotlin_extensions/src/extensions/function/binary_predicate.dart'
+    show BinaryNegate;
+import 'package:kotlin_extensions/src/extensions/iterable/iterable_map.dart'
+    show ToMap;
+import 'package:kotlin_extensions/src/extensions/iterable/iterable_object.dart';
+import 'package:kotlin_extensions/src/extensions/object/object.dart' show To;
 import 'package:kotlin_extensions/typedefs.dart';
-
-import '../function/binary_predicate.dart';
-import '../iterable/iterable_map.dart';
-import '../iterable/iterable_object.dart';
-import '../object/object.dart';
 
 // TODO: should we copy the doc string here too?
 extension Any<K, V> on Map<K, V> {

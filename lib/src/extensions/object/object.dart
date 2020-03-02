@@ -44,5 +44,11 @@ extension Let<T> on T {
 }
 
 extension To<K> on K {
-  MapEntry<K, V> to<V>(V value) => MapEntry<K, V>(this, value);
+  /// Creates a [MapEntry<T, V>] from [this] to [that].
+  ///
+  /// Examples:
+  /// ```Dart
+  /// print('Hello'.to('World')); // => MapEntry(Hello, World)
+  /// ```
+  MapEntry<K, V> to<V>(V that) => MapEntry<K, V>(this, that);
 }

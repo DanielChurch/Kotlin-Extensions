@@ -1,8 +1,13 @@
+import 'package:kotlin_extensions/list.dart'
+    show SortedBy, SortedByDescending, SortedWith;
+
 extension Sorted<T extends Comparable> on List<T> {
   /// Returns a List of all elements sorted according to their natural sort order.
   ///
   /// The sort is stable. It means that equal elements preserve
   /// their order relative to each other after sorting.
+  ///
+  /// Related: [SortedBy], [SortedWith], [SortedByDescending], [sortedDescending]
   ///
   /// Example:
   /// ```Dart
@@ -15,6 +20,8 @@ extension SortedDescending<T extends Comparable> on List<T> {
   /// Returns a [List] of all elements sorted descending according to their natural sort order.
   ///
   /// The sort is stable. It means that equal elements preserve their order relative to each other after sorting.
+  ///
+  /// Related: [sorted], [SortedBy], [SortedWith], [SortedByDescending]
   ///
   /// Example:
   /// ```Dart

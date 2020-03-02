@@ -1,8 +1,12 @@
+import 'package:kotlin_extensions/map.dart' show MapToIterable, ToList;
+
 extension ToMap<K, V> on Iterable<MapEntry<K, V>> {
   /// Returns a new [Map] containing all key-value pairs from the given collection.
   ///
   /// The returned [Map] preserves the entry iteration order of the original collection.
   /// If any of two pairs would have the same key the last one gets added to the map.
+  ///
+  /// Related: [MapToIterable], [ToList]
   ///
   /// Examples:
   /// ```Dart

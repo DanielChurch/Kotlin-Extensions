@@ -54,7 +54,7 @@ On `List<T>`: [distinct](doc/list.md#distinct), [distinctBy](doc/list.md#distinc
 
 On `List<T extends Comparable>`: [sorted](doc/list.md#sorted), [sortedDescending](doc/list.md#sortedDescending)
 
-On `Map<K, V>`: [get](doc/map.md#get), [getOrDefault](doc/map.md#getOrDefault), [getOrElse](doc/map.md#getOrElse), [mapKeys](doc/map.md#mapKeys), [mapValues](doc/map.md#mapValues)
+On `Map<K, V>`: [any](doc/map.md#any), [asIterable](doc/map.md#asIterable), [copy](doc/map.md#copy), [every](doc/map.md#every), [flatMap](doc/map.md#flatMap), [getOrDefault](doc/map.md#getOrDefault), [getOrElse](doc/map.md#getOrElse), [getOrNull](doc/map.md#getOrNull), [getValue](doc/map.md#getValue), [isNullOrEmpty](doc/map.md#isNullOrEmpty), [mapKeys](doc/map.md#mapKeys), [mapNotNull](doc/map.md#mapNotNull), [mapToIterable](doc/map.md#mapToIterable), [mapValues](doc/map.md#mapValues), [maxBy](doc/map.md#maxBy), [maxWith](doc/map.md#maxWith), [minBy](doc/map.md#minBy), [minWith](doc/map.md#minWith), [none](doc/map.md#none), [onEach](doc/map.md#onEach), [orEmpty](doc/map.md#orEmpty), [plus](doc/map.md#plus), [toList](doc/map.md#toList), [where](doc/map.md#where), [whereKeys](doc/map.md#whereKeys), [whereNot](doc/map.md#whereNot), [whereValues](doc/map.md#whereValues)
 
 On `bool Function(T)` & `bool Function(K, V)`: [and](doc/function.md#and), [negate](doc/function.md#negate), [or](doc/function.md#or)
 

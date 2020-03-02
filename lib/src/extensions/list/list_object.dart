@@ -1,11 +1,13 @@
-import 'package:kotlin_extensions/typedefs.dart';
-
+import 'package:kotlin_extensions/list.dart' show Sorted, SortedDescending;
 import 'package:kotlin_extensions/map.dart';
+import 'package:kotlin_extensions/typedefs.dart';
 
 extension Distinct<T> on List<T> {
   /// Returns a [List] containing only distinct elements from the given collection.
   ///
   /// The elements in the resulting [List] are in the same order as they were in the source [Iterable].
+  ///
+  /// Related: [distinctBy]
   ///
   /// Examples:
   /// ```Dart
@@ -19,6 +21,8 @@ extension DistinctBy<T> on List<T> {
   /// Returns a list containing only elements from the given array having distinct keys returned by the given selector function.
   ///
   /// The elements in the resulting list are in the same order as they were in the source array.
+  ///
+  /// Related: [distinct]
   ///
   /// Examples:
   /// ```Dart
@@ -42,6 +46,8 @@ extension SortedBy<T> on List<T> {
   /// The sort is stable. It means that equal elements preserve
   /// their order relative to each other after sorting.
   ///
+  /// Related: [sortedByDescending], [Sorted], [sortedWith], [SortedDescending]
+  ///
   /// Example:
   /// ```Dart
   /// 1, 2, 3].sortedBy((i) => -i); // => [3, 2, 1]
@@ -63,6 +69,8 @@ extension SortedByDescending<T> on List<T> {
   /// The sort is stable. It means that equal elements preserve their order
   /// relative to each other after sorting.
   ///
+  /// Related: [sortedBy], [Sorted], [sortedWith], [SortedDescending]
+  ///
   /// Example:
   /// ```Dart
   /// ['Foo', 'Hello', 'Four'].sortedByDescending((str) => str.length); // => ['Hello', 'Four', 'Foo']
@@ -79,6 +87,8 @@ extension SortedWith<T> on List<T> {
   ///
   /// The sort is stable. It means that equal elements preserve
   /// their order relative to each other after sorting.
+  ///
+  /// /// Related: [Sorted], [sortedBy], [SortedDescending], [sortedByDescending]
   ///
   /// Example:
   /// ```Dart

@@ -13,7 +13,16 @@ extension AsIterable on String {
   }
 }
 
+// TODO: Documentation below
+
 extension Capitalize on String {
+  ///
+  ///
+  /// Related: [decapitalize]
+  ///
+  /// Examples:
+  /// ```Dart
+  /// ```
   String capitalize() {
     if (isEmpty) return this;
 
@@ -22,6 +31,13 @@ extension Capitalize on String {
 }
 
 extension Decapitalize on String {
+  ///
+  ///
+  /// Related: [capitalize]
+  ///
+  /// Examples:
+  /// ```Dart
+  /// ```
   String decapitalize() {
     if (isEmpty) return this;
 
@@ -30,14 +46,35 @@ extension Decapitalize on String {
 }
 
 extension First on String {
+  ///
+  ///
+  /// Related:
+  ///
+  /// Examples:
+  /// ```Dart
+  /// ```
   String get first => take(1);
 }
 
 extension Lines on String {
+  ///
+  ///
+  /// Related:
+  ///
+  /// Examples:
+  /// ```Dart
+  /// ```
   Iterable<String> lines() => split('\n');
 }
 
 extension Take on String {
+  ///
+  ///
+  /// Related:
+  ///
+  /// Examples:
+  /// ```Dart
+  /// ```
   String take(int count) {
     ArgumentError.checkNotNull(count, 'count');
 

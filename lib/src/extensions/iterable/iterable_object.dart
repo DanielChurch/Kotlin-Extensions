@@ -1,12 +1,13 @@
-import 'package:kotlin_extensions/src/util/generic_object_helper.dart';
-import 'package:meta/meta.dart';
-
-import '../../pair.dart';
-import '../../typedefs.dart';
-import '../function/predicate.dart';
-import '../object/object.dart';
-
-import 'iterable_map.dart';
+import 'package:kotlin_extensions/src/extensions/function/predicate.dart'
+    show Negate;
+import 'package:kotlin_extensions/src/extensions/iterable/iterable_map.dart'
+    show ToMap;
+import 'package:kotlin_extensions/src/extensions/object/object.dart' show Also;
+import 'package:kotlin_extensions/src/pair.dart' show Pair;
+import 'package:kotlin_extensions/src/typedefs.dart';
+import 'package:kotlin_extensions/src/util/generic_object_helper.dart'
+    show isNotNull;
+import 'package:meta/meta.dart' show required;
 
 extension Associate<T> on Iterable<T> {
   /// Returns a [Map] containing key-value pairs provided by the [transform]
