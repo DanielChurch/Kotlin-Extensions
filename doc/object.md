@@ -54,3 +54,16 @@ String reverse(String text) {
 
 print(reverse('Hello')); // 'olleH'
 ```
+
+### [`to`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html)
+
+```Dart
+MapEntry<T, V> T.to(V that)
+```
+
+Creates a `MapEntry<T, V>` from `this` to `that`.
+
+Examples:
+```Dart
+print('Hello'.to('World')); // MapEntry(Hello, World)
+```

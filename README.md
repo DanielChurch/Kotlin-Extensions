@@ -18,19 +18,19 @@ KotlinExtensions.dart
     <img src="https://travis-ci.com/DanielChurch/KtXt.dart.svg?branch=master">
   </a>
   <a href="https://codecov.io/gh/DanielChurch/KtXt.dart">
-      <img src="https://codecov.io/gh/DanielChurch/KtXt.dart/branch/master/graph/badge.svg">
+    <img src="https://codecov.io/gh/DanielChurch/KtXt.dart/branch/master/graph/badge.svg">
   </a>
 </p>
 
 ## Introduction
 
-`KotlinExtensions.dart` is a package that adds implementations of extensions from Kotlin.
+`KotlinExtensions.dart` is a package that adds implementations of extensions from [Kotlin](https://kotlinlang.org/) to [Dart](https://dart.dev/).
 
 The extensions are:
   - Built on Dart's existing types
     - Familiar to existing Dart functionality
     - Easy to adopt
-    - `Iterable` -> `Iterable` methods are lazy
+    - Follows Dart's methodology (eg. `Iterable` -> `Iterable` methods are lazy)
   - Fully tested with meaningful coverage
   - Well documentented
   - Built to be compatable with other similar libraries
@@ -38,7 +38,7 @@ The extensions are:
 
 ## Added Extensions
 
-On `T`: [also](doc/object.md#also), [let](doc/object.md#let)
+On `T`: [also](doc/object.md#also), [let](doc/object.md#let), [to](doc/object.md#to)
 
 On `Iterable<T>`: [associate](doc/iterable.md#associate), [associateBy](doc/iterable.md#associateBy), [associateWith](doc/iterable.md#associateWith), [containsAll](doc/iterable.md#containsAll), [firstOrNull](doc/iterable.md#firstOrNull), [flatMap](doc/iterable.md#flatMap), [forEachIndexed](doc/iterable.md#forEachIndexed), [groupBy](doc/iterable.md#groupBy), [isNullOrEmpty](doc/iterable.md#isNullOrEmpty), [lastOrNull](doc/iterable.md#lastOrNull), [mapIndexed](doc/iterable.md#mapIndexed), [mapIndexedNotNull](doc/iterable.md#mapIndexedNotNull), [mapNotNull](doc/iterable.md#mapNotNull), [maxBy](doc/iterable.md#maxBy), [maxWith](doc/iterable.md#maxWith), [minBy](doc/iterable.md#minBy), [minWith](doc/iterable.md#minWith), [partition](doc/iterable.md#partition), [reduceIndexed](doc/iterable.md#reduceIndexed), [reduceIndexedOrNull](doc/iterable.md#reduceIndexedOrNull-not-from-kotlin), [reduceOrNull](doc/iterable.md#reduceOrNull-not-from-kotlin), [whereIndexed](doc/iterable.md#whereIndexed-kotlin-filterIndexed), [whereIsNotNull](doc/iterable.md#whereIsNotNull-not-from-kotlin), [whereNot (Kotlin filterNot)](doc/iterable.md#whereNot-kotlin-filterNot), [whereNotNull](doc/iterable.md#whereNotNull-kotlin-filterNotNull)
 
@@ -73,7 +73,7 @@ dependencies:
 
 2. Import the extensions where you would like to use them.
 
-The extensions are split up into separate libraries, so you can only import what you need. The packages are separated by what object the extensions are on:
+The extensions are split up into separate libraries, so you can import only what you need. The packages are separated by what object the extensions are on:
 
 ```Dart
 import 'package:kotlin_extensions/iterable.dart';
@@ -88,9 +88,13 @@ import 'package:kotlin_extensions/map.dart';
 ```
 
 ```Dart
+import 'package:kotlin_extensions/set.dart';
+```
+
+```Dart
 import 'package:kotlin_extensions/object.dart';
 ```
 
 ```Dart
-import 'package:kotlin_extensions/set.dart';
+import 'package:kotlin_extensions/function.dart';
 ```
