@@ -1,5 +1,5 @@
-@TestOn('vm')
-
+import 'extensions/function/binary_predicate_test.dart' as binary_predicate_tests;
+import 'extensions/function/predicate_test.dart' as predicate_tests;
 import 'extensions/iterable_extensions_test.dart' as iterable_extension_tests;
 import 'extensions/list_extensions_test.dart' as list_extension_tests;
 import 'extensions/map_extensions_test.dart' as map_extension_tests;
@@ -11,6 +11,8 @@ import 'package:test/test.dart';
 
 void main() {
   group('kotlin_extensions', () {
+    binary_predicate_tests.main();
+    predicate_tests.main();
     iterable_extension_tests.main();
     list_extension_tests.main();
     map_extension_tests.main();

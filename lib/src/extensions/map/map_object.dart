@@ -1,6 +1,6 @@
 import 'package:kotlin_extensions/typedefs.dart';
 
-import '../function/function_predicate.dart';
+import '../function/binary_predicate.dart';
 import '../iterable/iterable_map.dart';
 import '../iterable/iterable_object.dart';
 import '../object/object.dart';
@@ -43,7 +43,7 @@ extension Copy<K, V> on Map<K, V> {
   /// Returns a new read-only `Map` containing all key-value pairs
   /// from the original `Map`.
   ///
-  /// The returned `Map` preserves the entry iteration order of theoriginal `Map`.
+  /// The returned `Map` preserves the entry iteration order of the original `Map`.
   ///
   /// Related: TODO
   ///

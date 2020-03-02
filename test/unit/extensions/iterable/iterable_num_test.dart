@@ -1,5 +1,3 @@
-@TestOn('vm')
-
 import 'package:test/test.dart';
 
 import 'package:kotlin_extensions/iterable.dart';

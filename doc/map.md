@@ -30,6 +30,8 @@
     - [whereValues](#whereValues)
 - [On Map\<K extends Comparable\<K\>\>](#on-mapk-extends-comparablek)
 
+## On `Map<K, V>`
+
 ### [`any`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/any.html)
 
 Returns `true` if at least one entry matches the given `predicate`.
@@ -512,6 +514,6 @@ Examples:
 print({'Hello': 2, 'Hi': 1}.whereValues((v) => v > 1)); // {'Hello': 2}
 ```
 
-## On `Map<K extends Comparable<K>>`
+## On `Map<K extends Comparable, V>`
 
 [map (Dart)]: https://api.dart.dev/stable/2.7.1/dart-core/Map/map.html

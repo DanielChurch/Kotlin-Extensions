@@ -1,5 +1,3 @@
-@TestOn('vm')
-
 import 'package:kotlin_extensions/map.dart';
 
 import 'package:test/test.dart';

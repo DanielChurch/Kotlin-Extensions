@@ -1,5 +1,3 @@
-@TestOn('vm')
-
 import 'package:test/test.dart';
 
 import 'map/map_comparable_test.dart' as map_comparable_test;

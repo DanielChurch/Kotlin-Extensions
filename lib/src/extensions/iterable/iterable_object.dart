@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 
 import '../../pair.dart';
 import '../../typedefs.dart';
-import '../function/function_predicate.dart';
+import '../function/predicate.dart';
 import '../object/object.dart';
 
 import 'iterable_map.dart';
