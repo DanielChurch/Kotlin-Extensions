@@ -491,12 +491,6 @@ extension WhereIndexed<T> on Iterable<T> {
   }
 }
 
-// extension WhereIs<T> on Iterable<T> {
-//   Iterable<T> whereIs<R>(Transform<T, R> transform) {
-//     return where((T element) => transform(element));
-//   }
-// }
-
 extension WhereIsNotNull<T> on Iterable<T> {
   /// Returns a lazy [Iterable] containing all elements of the original [Iterable]
   /// where the result of [transform] applied on the elements is not `null`.

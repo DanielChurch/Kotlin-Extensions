@@ -6,11 +6,13 @@ import 'package:kotlin_extensions/src/extensions/iterable/iterable_object.dart';
 import 'package:kotlin_extensions/src/extensions/object/object.dart' show To;
 import 'package:kotlin_extensions/typedefs.dart';
 
+// TODO: verify we cleaned up from the map -> mapentry change
+
 // TODO: should we copy the doc string here too?
 extension Any<K, V> on Map<K, V> {
   /// Returns `true` if at least one entry matches the given [predicate].
   ///
-  /// Related: TODO
+  /// Related: [every], [none]
   ///
   /// Examples:
   /// ```Dart
@@ -30,7 +32,7 @@ extension AsIterable<K, V> on Map<K, V> {
   /// Creates a lazy [Iterable] instance that wraps the original `Map`
   /// returning its entries when being iterated.
   ///
-  /// Related: TODO
+  /// Related: [toList], [ToMap]
   ///
   /// Examples:
   /// ```Dart
@@ -46,7 +48,7 @@ extension Copy<K, V> on Map<K, V> {
   ///
   /// The returned `Map` preserves the entry iteration order of the original `Map`.
   ///
-  /// Related: TODO
+  /// Related: [Map.from]
   ///
   /// Examples:
   /// ```Dart
@@ -64,7 +66,7 @@ extension Copy<K, V> on Map<K, V> {
 extension Every<K, V> on Map<K, V> {
   /// Returns `true` if all entries match the given [predicate].
   ///
-  /// Related: TODO
+  /// Related: [any], [none]
   ///
   /// Examples:
   /// ```Dart
@@ -85,7 +87,7 @@ extension FlatMap<K, V> on Map<K, V> {
   /// Returns a lazy [Iterable] of all elements yielded from results of
   /// [transform] function being invoked on each entry of original [Map].
   ///
-  /// Related: TODO
+  /// Related: [mapToIterable], [mapValues], [mapKeys]
   ///
   /// Example:
   /// ```Dart
@@ -102,7 +104,7 @@ extension GetOrDefault<K, V> on Map<K, V> {
   /// Returns the value corresponding to the given [key], or
   /// [defaultValue] if such a [key] is not present in the [Map].
   ///
-  /// Related: [get], [getOrElse]
+  /// Related: [get], [getOrElse], [getValue]
   ///
   /// Example:
   /// ```Dart
@@ -116,7 +118,7 @@ extension GetOrElse<K, V> on Map<K, V> {
   /// Returns the value for the given [key], or the result of the
   /// [defaultValue] function if there was no entry for the given [key].
   ///
-  /// Related: [get], [getOrDefault]
+  /// Related: [get], [getOrDefault], [getValue]
   ///
   /// Examples:
   /// ```Dart
@@ -134,7 +136,7 @@ extension GetOrNull<K, V> on Map<K, V> {
   /// Returns the value corresponding to the given [key],
   /// or `null` if such a [key] is not present in the [Map].
   ///
-  /// Related: [getOrDefault], [getOrElse]
+  /// Related: [getOrDefault], [getOrElse], [getValue]
   ///
   /// Example:
   /// ```Dart
@@ -156,7 +158,7 @@ extension GetValue<K, V> on Map<K, V> {
   /// Returns the value for the given [key] or throws a [StateError]
   /// if there is no such key in the `Map`.
   ///
-  /// Related: TODO
+  /// Related: [getOrNull], [getOrDefault], [getOrElse]
   ///
   /// Examples:
   /// ```Dart
@@ -175,7 +177,7 @@ extension GetValue<K, V> on Map<K, V> {
 extension IsNullOrEmpty<K, V> on Map<K, V> {
   /// Returns `true` if this [Map] is either `null` or empty.
   ///
-  /// Related: TODO
+  /// Related: [isEmpty], [orEmpty]
   ///
   /// Examples:
   /// ```Dart
@@ -196,7 +198,7 @@ extension MapKeys<K, V> on Map<K, V> {
   ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
   ///
-  /// Related: [mapValues]
+  /// Related: [mapValues], [map], [mapToIterable], [mapNotNull]
   ///
   /// Examples:
   /// ```Dart
@@ -214,7 +216,7 @@ extension MapNotNull<K, V> on Map<K, V> {
   /// Returns a lazy [Iterable] containing only the non-null results of applying
   /// the given [transform] function to each entry in the original [Map].
   ///
-  /// Related: TODO
+  /// Related: [mapToIterable], [map], [mapKeys], [mapValues]
   ///
   /// Examples:
   /// ```Dart
@@ -231,7 +233,7 @@ extension MapToIterable<K, V> on Map<K, V> {
   /// Returns a lazy [Iterable] containing the results of applying the given
   /// [transform] function to each entry in the original [Map].
   ///
-  /// Related: [map (Dart)]
+  /// Related: [map], [mapKeys], [mapValues], [mapNotNull]
   ///
   /// Example:
   /// ```Dart
@@ -250,7 +252,7 @@ extension MapValues<K, V> on Map<K, V> {
   ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
   ///
-  /// Related: [mapKeys]
+  /// Related: [mapKeys], [map], [mapToIterable], [mapNotNull]
   ///
   /// Examples:
   /// ```Dart
@@ -268,7 +270,7 @@ extension MaxBy<K, V> on Map<K, V> {
   /// Returns the first entry yielding the largest value of the given function
   /// or `null` if there are no entries.
   ///
-  /// Related: TODO
+  /// Related: [maxWith], [minBy], [minWith]
   ///
   /// Examples:
   /// ```Dart
@@ -288,12 +290,13 @@ extension MaxWith<K, V> on Map<K, V> {
   /// Returns the first entry having the largest value according to the
   /// provided [compare] or `null` if there are no entries.
   ///
-  /// Related: TODO
+  /// Related: [maxBy], [minBy], [minWith]
   ///
   /// Examples:
   /// ```Dart
-  /// TODO
-  /// <String, int>{'Hello': 2, 'Yo': 3}.maxWith((k1, v1, k2, v2) => ); // =>
+  /// <String, int>{'Hello': 2, 'Yo': 3}.maxWith(
+  ///   (e1, e2) => e1.key.length.compareTo(e2.key.length),
+  /// ); // => MapEntry('Hello', 2)
   /// ```
   MapEntry<K, V> maxWith(Comparator<MapEntry<K, V>> compare) {
     ArgumentError.checkNotNull(compare, 'compare');
@@ -306,7 +309,7 @@ extension MinBy<K, V> on Map<K, V> {
   /// Returns the first entry yielding the smallest value of the given
   /// [selector] or `null` if there are no entries.
   ///
-  /// Related: TODO
+  /// Related: [minWith], [maxWith], [maxBy]
   ///
   /// Examples:
   /// ```Dart
@@ -324,7 +327,7 @@ extension MinWith<K, V> on Map<K, V> {
   /// Returns the first entry having the smallest value according to the
   /// provided [compare] function or `null` if there are no entries.
   ///
-  /// Related: TODO
+  /// Related: [minBy], [maxWith], [maxBy]
   ///
   /// Examples:
   /// ```Dart
@@ -340,7 +343,7 @@ extension MinWith<K, V> on Map<K, V> {
 extension None<K, V> on Map<K, V> {
   /// Returns `true` if no entries match the given [predicate].
   ///
-  /// Related: TODO
+  /// Related: [any], [every]
   ///
   /// Examples:
   /// ```Dart
@@ -361,7 +364,7 @@ extension OnEach<K, V> on Map<K, V> {
   /// Performs the given [action] on each entry and returns
   /// the [Map] itself afterwards.
   ///
-  /// Related: TODO
+  /// Related: [forEach]
   ///
   /// Examples:
   /// ```Dart
@@ -379,7 +382,7 @@ extension OnEach<K, V> on Map<K, V> {
 extension OrEmpty<K, V> on Map<K, V> {
   /// Returns the [Map] if its not `null`, or an empty [Map] otherwise.
   ///
-  /// Related: TODO
+  /// Related: [isNullOrEmpty]
   ///
   /// Examples:
   /// ```Dart
@@ -406,7 +409,7 @@ extension Plus<K, V> on Map<K, V> {
   /// Those entries of another [Map] that are missing in this [Map] are iterated
   /// in the end in the order of that [Map].
   ///
-  /// Related: TODO
+  /// Related: [addAll]
   ///
   /// Examples:
   /// ```Dart
@@ -425,7 +428,7 @@ extension Plus<K, V> on Map<K, V> {
 extension ToList<K, V> on Map<K, V> {
   /// Returns a [List] containing all key-value pairs.
   ///
-  /// Related: TODO
+  /// Related: [mapToIterable], [ToMap]
   ///
   /// Examples:
   /// ```Dart
@@ -439,7 +442,7 @@ extension Where<K, V> on Map<K, V> {
   ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
   ///
-  /// Related: TODO
+  /// Related: [whereKeys], [whereNot], [whereValues]
   ///
   /// Examples:
   /// ```Dart
@@ -461,7 +464,7 @@ extension WhereKeys<K, V> on Map<K, V> {
   ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
   ///
-  /// Related: TODO
+  /// Related: [where], [whereNot], [whereValues]
   ///
   /// Examples:
   /// ```Dart
@@ -485,7 +488,7 @@ extension WhereNot<K, V> on Map<K, V> {
   ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
   ///
-  /// Related: TODO
+  /// Related: [where], [whereKeys], [whereValues]
   ///
   /// Examples:
   /// ```Dart
@@ -504,7 +507,7 @@ extension WhereValues<K, V> on Map<K, V> {
   ///
   /// The returned [Map] preserves the entry iteration order of the original [Map].
   ///
-  /// Related: TODO
+  /// Related: [where], [whereKeys], [whereNot]
   ///
   /// Examples:
   /// ```Dart
