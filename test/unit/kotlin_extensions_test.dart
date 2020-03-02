@@ -1,4 +1,5 @@
-import 'extensions/function/binary_predicate_test.dart' as binary_predicate_tests;
+import 'extensions/function/binary_predicate_test.dart'
+    as binary_predicate_tests;
 import 'extensions/function/predicate_test.dart' as predicate_tests;
 import 'extensions/iterable_extensions_test.dart' as iterable_extension_tests;
 import 'extensions/list_extensions_test.dart' as list_extension_tests;
