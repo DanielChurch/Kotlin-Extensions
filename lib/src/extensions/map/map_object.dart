@@ -1,12 +1,10 @@
+import 'package:kotlin_extensions/function.dart';
 import 'package:kotlin_extensions/src/extensions/function/binary_predicate.dart'
     show BinaryNegate;
 import 'package:kotlin_extensions/src/extensions/iterable/iterable_map.dart'
     show ToMap;
 import 'package:kotlin_extensions/src/extensions/iterable/iterable_object.dart';
-import 'package:kotlin_extensions/src/extensions/object/object.dart' show To;
 import 'package:kotlin_extensions/typedefs.dart';
-
-// TODO: verify we cleaned up from the map -> mapentry change
 
 // TODO: should we copy the doc string here too?
 extension Any<K, V> on Map<K, V> {
@@ -32,14 +30,13 @@ extension AsIterable<K, V> on Map<K, V> {
   /// Creates a lazy [Iterable] instance that wraps the original `Map`
   /// returning its entries when being iterated.
   ///
-  /// Related: [toList], [ToMap]
+  /// Related: [entries], [toList], [ToMap]
   ///
   /// Examples:
   /// ```Dart
+  /// <String, int>{'Foo': 0, 'Bar': 1}.asIterable(); // => (MapEntry('Foo', 0), MapEntry('Bar': 1))
   /// ```
-  Iterable<MapEntry<K, V>> asIterable() {
-    return keys.map((K key) => To(key).to(this[key]));
-  }
+  Iterable<MapEntry<K, V>> asIterable() => entries;
 }
 
 extension Copy<K, V> on Map<K, V> {
@@ -104,7 +101,7 @@ extension GetOrDefault<K, V> on Map<K, V> {
   /// Returns the value corresponding to the given [key], or
   /// [defaultValue] if such a [key] is not present in the [Map].
   ///
-  /// Related: [get], [getOrElse], [getValue]
+  /// Related: [getOrElse], [getOrNull], [getValue]
   ///
   /// Example:
   /// ```Dart
@@ -118,7 +115,7 @@ extension GetOrElse<K, V> on Map<K, V> {
   /// Returns the value for the given [key], or the result of the
   /// [defaultValue] function if there was no entry for the given [key].
   ///
-  /// Related: [get], [getOrDefault], [getValue]
+  /// Related: [getOrDefault], [getOrNull], [getValue]
   ///
   /// Examples:
   /// ```Dart
@@ -331,7 +328,10 @@ extension MinWith<K, V> on Map<K, V> {
   ///
   /// Examples:
   /// ```Dart
-  /// TODO
+  /// [-1, 5, 2].minWith((i, j) => i < j ? -1 : 1); // => -1
+  /// 
+  /// [5, 4, 1, 9, 42].minWith(compareBy((i) => -i)); // => 42
+  /// ['Hello', 'Foo'].minWith(compareBy((str) => str.length)); // => 'Foo'
   /// ```
   MapEntry<K, V> minWith(Comparator<MapEntry<K, V>> compare) {
     ArgumentError.checkNotNull(compare, 'compare');

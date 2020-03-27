@@ -54,12 +54,9 @@ void expectReturnsNormally(void Function() block) {
   test.expect(block, test.returnsNormally);
 }
 
-void Function(ArgumentError) verifyArgumentError({
-  String name,
-  String message,
-}) {
-  return (error) {
-    error.name.expectEquals(name);
-    (error.message as String).expectEquals(message);
-  };
+extension VerifyArgumentError on ArgumentError {
+  void verifyArgumentError({String name, String message}) {
+    this.name.expectEquals(name);
+    this.message.expectEquals(message);
+  }
 }

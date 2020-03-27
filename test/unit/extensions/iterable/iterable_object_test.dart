@@ -16,9 +16,9 @@ void main() {
   group('on Iterable<T>', () {
     group('associate', () {
       test('throws on null input', () {
-        expectFailsWith<ArgumentError>(() => [].associate(null)).also(
-          verifyArgumentError(name: 'transform', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].associate(null);
+        }).verifyArgumentError(name: 'transform', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -46,15 +46,15 @@ void main() {
       test('throws on null input', () {
         expectFailsWith<ArgumentError>(
           () => [].associateBy(key: null, value: null),
-        ).also(verifyArgumentError(message: 'key and value must not be null'));
+        ).verifyArgumentError(message: 'key and value must not be null');
 
         expectFailsWith<ArgumentError>(
           () => [].associateBy(key: null, value: (i) => i),
-        ).also(verifyArgumentError(name: 'key', message: 'Must not be null'));
+        ).verifyArgumentError(name: 'key', message: 'Must not be null');
 
         expectFailsWith<ArgumentError>(
           () => [].associateBy(key: (i) => i, value: null),
-        ).also(verifyArgumentError(name: 'value', message: 'Must not be null'));
+        ).verifyArgumentError(name: 'value', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -76,11 +76,11 @@ void main() {
 
     group('associateWith', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].associateWith(null)).also(
-          verifyArgumentError(
-            name: 'valueSelector',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [].associateWith(null);
+        }).verifyArgumentError(
+          name: 'valueSelector',
+          message: 'Must not be null',
         );
       });
 
@@ -98,9 +98,8 @@ void main() {
 
     group('containsAll', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].containsAll(null)).also(
-          verifyArgumentError(name: 'elements', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => [].containsAll(null))
+            .verifyArgumentError(name: 'elements', message: 'Must not be null');
       });
 
       test('handles empty iterables', () {
@@ -137,9 +136,9 @@ void main() {
 
     group('flatMap', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].flatMap(null)).also(
-          verifyArgumentError(name: 'transform', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => [].flatMap(null))
+            .verifyArgumentError(
+                name: 'transform', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -166,11 +165,11 @@ void main() {
 
     group('forEachIndexed', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].forEachIndexed(null)).also(
-          verifyArgumentError(
-            name: 'indexedAction',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [].forEachIndexed(null);
+        }).verifyArgumentError(
+          name: 'indexedAction',
+          message: 'Must not be null',
         );
       });
 
@@ -201,11 +200,11 @@ void main() {
 
     group('groupBy', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].groupBy(null)).also(
-          verifyArgumentError(
-            name: 'keySelector',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [].groupBy(null);
+        }).verifyArgumentError(
+          name: 'keySelector',
+          message: 'Must not be null',
         );
       });
 
@@ -252,11 +251,11 @@ void main() {
 
     group('mapIndexed', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].mapIndexed(null)).also(
-          verifyArgumentError(
-            name: 'indexedTransform',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [].mapIndexed(null);
+        }).verifyArgumentError(
+          name: 'indexedTransform',
+          message: 'Must not be null',
         );
       });
 
@@ -281,11 +280,11 @@ void main() {
 
     group('mapIndexedNotNull', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].mapIndexedNotNull(null)).also(
-          verifyArgumentError(
-            name: 'indexedTransform',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [].mapIndexedNotNull(null);
+        }).verifyArgumentError(
+          name: 'indexedTransform',
+          message: 'Must not be null',
         );
       });
 
@@ -327,9 +326,9 @@ void main() {
 
     group('mapNotNull', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].mapNotNull(null)).also(
-          verifyArgumentError(name: 'transform', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].mapNotNull(null);
+        }).verifyArgumentError(name: 'transform', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -359,9 +358,9 @@ void main() {
 
     group('maxBy', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].maxBy(null)).also(
-          verifyArgumentError(name: 'selector', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].maxBy(null);
+        }).verifyArgumentError(name: 'selector', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -381,9 +380,9 @@ void main() {
 
     group('maxWith', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].maxWith(null)).also(
-          verifyArgumentError(name: 'comparator', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].maxWith(null);
+        }).verifyArgumentError(name: 'comparator', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -404,9 +403,9 @@ void main() {
 
     group('minBy', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].minBy(null)).also(
-          verifyArgumentError(name: 'selector', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].minBy(null);
+        }).verifyArgumentError(name: 'selector', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -424,9 +423,9 @@ void main() {
 
     group('minWith', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].maxWith(null)).also(
-          verifyArgumentError(name: 'comparator', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].maxWith(null);
+        }).verifyArgumentError(name: 'comparator', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -447,9 +446,9 @@ void main() {
 
     group('none', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].none(null)).also(
-          verifyArgumentError(name: 'predicate', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].none(null);
+        }).verifyArgumentError(name: 'predicate', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -459,9 +458,9 @@ void main() {
 
     group('partition', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].partition(null)).also(
-          verifyArgumentError(name: 'predicate', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].partition(null);
+        }).verifyArgumentError(name: 'predicate', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -490,11 +489,11 @@ void main() {
 
     group('reduceIndexed', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [0].reduceIndexed(null)).also(
-          verifyArgumentError(
-            name: 'indexedCombine',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [0].reduceIndexed(null);
+        }).verifyArgumentError(
+          name: 'indexedCombine',
+          message: 'Must not be null',
         );
       });
 
@@ -514,9 +513,9 @@ void main() {
 
     group('reduceIndexedOrNull', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].reduceIndexedOrNull(null)).also(
-          verifyArgumentError(name: 'combine', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].reduceIndexedOrNull(null);
+        }).verifyArgumentError(name: 'combine', message: 'Must not be null');
       });
 
       test('returns null when the iterable is empty', () {
@@ -537,11 +536,11 @@ void main() {
 
     group('whereIndexed', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].whereIndexed(null)).also(
-          verifyArgumentError(
-            name: 'indexedPredicate',
-            message: 'Must not be null',
-          ),
+        expectFailsWith<ArgumentError>(() {
+          [].whereIndexed(null);
+        }).verifyArgumentError(
+          name: 'indexedPredicate',
+          message: 'Must not be null',
         );
       });
 
@@ -584,9 +583,9 @@ void main() {
 
     group('whereIsNotNull', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].whereIsNotNull(null)).also(
-          verifyArgumentError(name: 'transform', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].whereIsNotNull(null);
+        }).verifyArgumentError(name: 'transform', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {
@@ -605,9 +604,9 @@ void main() {
 
     group('whereNot', () {
       test('throws ArgumentError when passed null', () {
-        expectFailsWith<ArgumentError>(() => [].whereNot(null)).also(
-          verifyArgumentError(name: 'predicate', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() {
+          [].whereNot(null);
+        }).verifyArgumentError(name: 'predicate', message: 'Must not be null');
       });
 
       test('handles an empty iterable', () {

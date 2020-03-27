@@ -1,15 +1,33 @@
 # Function Extensions
 
 - Definitions:
+  - [Comparator]
   - [BinaryPredicate]
   - [Predicate]
 - Extensions:
-  - [On `Predicate & BinaryPredicate`](#on-predicate--binarypredicate)
+  - [On `Comparator<T>`](#on-comparatort)
+  - [On `Predicate<T> & BinaryPredicate<K, V>`](#on-predicatet--binarypredicatek-v)
     - [and]
     - [negate]
     - [or]
 
 ## Definitions
+
+### [`Comparator (Dart)`](https://api.flutter.dev/flutter/dart-core/Comparator.html)
+
+```Dart
+typedef Comparator<T> = int Function(T a, T b);
+```
+
+The signature of a generic comparison function.
+
+A comparison function represents an ordering on a type of objects. A total ordering on a type means that for two values, either they are equal or one is greater than the other (and the latter must then be smaller than the former).
+
+A Comparator function represents such a total ordering by returning
+
+- a negative integer if a is smaller than b,
+- zero if a is equal to b, and
+- a positive integer if a is greater than b.
 
 ### [`BinaryPredicate (Java BiPredicate)`](https://docs.oracle.com/javase/8/docs/api/java/util/function/BiPredicate.html)
 
@@ -29,7 +47,28 @@ Represents a boolean-valued function of one argument.
 
 ## Extensions
 
-### On `Predicate` & `BinaryPredicate`
+### On `Comparator<T>`
+
+#### [`reversed`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.comparisons/reversed.html)
+
+```Dart
+Comparator<T> get Comparator<T>.reversed
+```
+
+Returns a [Comparator] that imposes the reverse ordering of this [Comparator].
+
+Related: 
+
+Examples:
+```Dart
+final entries = [MapEntry(0, 'Foo'), MapEntry(0, 'Bar'), MapEntry(1, 'Baz')];
+
+final result = entries.sortedWith(compareBy<MapEntry<int, String>>((entry) => entry.key).reversed);
+print(result);
+// [MapEntry(1: Baz), MapEntry(0: Foo), MapEntry(0: Bar)]
+```
+
+### On `Predicate<T>` & `BinaryPredicate<K, V>`
 
 #### [`and`](https://docs.oracle.com/javase/8/docs/api/java/util/function/Predicate.html)
 
@@ -108,3 +147,6 @@ print(result); // 2, 6
 [negate]: #negate
 [or]: #or
 [predicate]: #predicate
+
+[Comparator]: #Comparator-dart
+[reversed]: #reversed

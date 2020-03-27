@@ -1,33 +1,33 @@
 # Map Extensions
 
 - [On Map\<K, V\>](#on-mapk-v)
-    - [any](#any)
-    - [asIterable](#asIterable)
-    - [copy](#copy)
-    - [every](#every)
-    - [flatMap](#flatMap)
-    - [getOrDefault](#getOrDefault)
-    - [getOrElse](#getOrElse)
-    - [getOrNull](#getOrNull)
-    - [getValue](#getValue)
-    - [isNullOrEmpty](#isNullOrEmpty)
-    - [mapKeys](#mapKeys)
-    - [mapNotNull](#mapNotNull)
-    - [mapToIterable](#mapToIterable)
-    - [mapValues](#mapValues)
-    - [maxBy](#maxBy)
-    - [maxWith](#maxWith)
-    - [minBy](#minBy)
-    - [minWith](#minWith)
-    - [none](#none)
-    - [onEach](#onEach)
-    - [orEmpty](#orEmpty)
-    - [plus](#plus)
-    - [toList](#toList)
-    - [where](#where)
-    - [whereKeys](#whereKeys)
-    - [whereNot](#whereNot)
-    - [whereValues](#whereValues)
+    - [any]
+    - [asIterable]
+    - [copy]
+    - [every]
+    - [flatMap]
+    - [getOrDefault]
+    - [getOrElse]
+    - [getOrNull]
+    - [getValue]
+    - [isNullOrEmpty]
+    - [mapKeys]
+    - [mapNotNull]
+    - [mapToIterable]
+    - [mapValues]
+    - [maxBy]
+    - [maxWith]
+    - [minBy]
+    - [minWith]
+    - [none]
+    - [onEach]
+    - [orEmpty]
+    - [plus]
+    - [toList]
+    - [where]
+    - [whereKeys]
+    - [whereNot]
+    - [whereValues]
 - [On Map\<K extends Comparable\<K\>\>](#on-mapk-extends-comparablek)
 
 ## On `Map<K, V>`
@@ -36,7 +36,7 @@
 
 Returns `true` if at least one entry matches the given `predicate`.
 
-Related: TODO
+Related: Related: [every], [none]
 
 Examples:
 ```Dart
@@ -54,7 +54,7 @@ Iterable<MapEntry<K, V>> Map<K, V>.asIterable()
 
 Creates a lazy `Iterable` that wraps the original `Map` returning its entries when being iterated.
 
-Related: TODO
+Related: [toList], [toMap]
 
 Examples:
 ```Dart
@@ -71,7 +71,7 @@ Returns a new read-only `Map` containing all key-value pairs from the original `
 
 The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: TODO
+Related: [Map.from (Dart)]
 
 ```Dart
 final map = {0: 1, 2: 3};
@@ -87,7 +87,7 @@ bool Map<K, V>.every(bool Function(K, V) predicate)
 
 Returns `true` if all entries match the given `predicate`.
 
-Related: TODO
+Related: [any], [none]
 
 Examples:
 ```Dart
@@ -106,7 +106,7 @@ Iterable<T> Map<K, V>.flatMap<R>(R Function(K, V) transform)
 
 Returns a lazy `Iterable` of all elements yielded from results of transform function being invoked on each entry of original `Map`.
 
-Related: TODO
+Related: [mapToIterable], [mapValues], [mapKeys]
 
 Examples:
 ```Dart
@@ -121,7 +121,7 @@ V Map<K, V>.getOrDefault(K key, V defaultValue)
 
 Returns the value corresponding to the given `key`, or `defaultValue` if such a `key` is not present in the `Map`.
 
-Related: [get](#get), [getOrElse](#getOrElse)
+Related: [getOrElse], [getOrNull], [getValue]
 
 Examples:
 ```Dart
@@ -137,7 +137,7 @@ V Map<K, V>.getOrElse(K key, V Function() defaultValue)
 
 Returns the value for the given `key`, or the result of the `defaultValue` function if there was no entry for the given `key`.
 
-Related: [get](#get), [getOrDefault](#getOrDefault)
+Related: [getOrDefault], [getOrNull], [getValue]
 
 Examples:
 ```Dart
@@ -153,7 +153,7 @@ Returns the value corresponding to the given `key`, or `null` if such a key is n
 V Map<K, V>.getOrNull(K key)
 ```
 
-Related: [getOrDefault](#getOrDefault), [getOrElse](#getOrElse)
+Related: [getOrDefault], [getOrElse], [getValue]
 
 Examples:
 ```Dart
@@ -172,7 +172,7 @@ V Map<K, V>.getValue(K key)
 
 Returns the value for the given `key` or throws a `StateError` if there is no such key in the `Map`.
 
-Related: TODO
+Related: [getOrNull], [getOrDefault], [getOrElse]
 
 Examples:
 ```Dart
@@ -190,7 +190,7 @@ bool get Map<K, V>.isNullOrEmpty
 
 Returns `true` if this `Map` is either `null` or empty.
 
-Related: TODO
+Related: [isEmpty], [orEmpty]
 
 Examples:
 ```Dart
@@ -212,7 +212,7 @@ Returns a new `Map` with entries having the keys obtained by applying the `trans
 - In case if any two entries are mapped to the equal keys, the value of the latter one will overwrite the value associated with the former one.
 - The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: [mapValues](#mapValues)
+Related: [mapValues], [map (Dart)], [mapToIterable], [mapNotNull]
 
 Examples:
 ```Dart
@@ -235,7 +235,7 @@ Iterable<T> Map<K, V>.mapNotNull<R>(R Function(K, V) transform)
 
 Returns a lazy `Iterable` containing only the non-null results of applying the given `transform` function to each entry in the original `Map`.
 
-Related: TODO
+Related: [mapToIterable], [map (Dart)], [mapKeys], [mapValues]
 
 Examples:
 ```Dart
@@ -250,7 +250,7 @@ Returns a lazy `Iterable` containing the results of applying the given `transfor
 Iterable<T> Map<K, V>.mapToIterable<T>(T Function(K, V) transform)
 ```
 
-Related: [map (Dart)]
+Related: [map (Dart)], [mapKeys], [mapValues], [mapNotNull]
 
 Examples:
 ```Dart
@@ -269,7 +269,7 @@ Returns a new `Map` with entries having the keys of this `Map` and the values ob
 
 The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: [mapKeys](#mapKeys)
+Related: [mapKeys], [map (Dart)], [mapToIterable], [mapNotNull]
 
 Examples:
 ```Dart
@@ -292,7 +292,7 @@ MapEntry<K, V> Map<K, V>.maxBy<R extends Comparable>(R Function(K, V) selector)
 
 Returns the first entry yielding the largest value of the given function or null if there are no entries.
 
-Related: TODO
+Related: [maxWith], [minBy], [minWith]
 
 Examples:
 ```Dart
@@ -308,7 +308,7 @@ MapEntry<K, V> Map<K, V>.maxWith(int Function(MapEntry<K, V> e1, MapEntry<K, V> 
 
 Returns the first entry having the largest value according to the provided `compare` or `null` if there are no entries.
 
-Related: TODO
+Related: [maxBy], [minBy], [minWith]
 
 Examples:
 ```Dart
@@ -323,7 +323,7 @@ MapEntry<K, V> Map<K, V>.minBy<R extends Comparable>(R Function(K, V) selector)
 
 Returns the first entry yielding the smallest value of the given `selector` or `null` if there are no entries.
 
-Related: TODO
+Related: [minWith], [maxWith], [maxBy]
 
 Examples:
 ```Dart
@@ -339,7 +339,7 @@ MapEntry<K, V> Map<K, V>.minWith(int Funciton(MapEntry<K, V> e1, MapEntry<K, V> 
 
 Returns the first entry having the smallest value according to the provided `compare` function or `null` if there are no entries.
 
-Related: TODO
+Related: [minBy], [maxWith], [maxBy]
 
 Examples:
 ```Dart
@@ -354,7 +354,7 @@ bool Map<K, V>.none(bool Function(K, V) predicate)
 
 Returns `true` if no entries match the given `predicate`.
 
-Related: TODO
+Related: [any], [every]
 
 Examples:
 ```Dart
@@ -373,7 +373,7 @@ Map<K, V> Map<K, V>.onEach(void Function(K, V) action)
 
 Performs the given `action` on each entry and returns the `Map` itself afterwards.
 
-Related: TODO
+Related: [forEach]
 
 Examples:
 ```Dart
@@ -388,7 +388,7 @@ Map<K, V> Map<K, V>.orEmpty()
 
 Returns the `Map` if its not `null`, or an empty `Map` otherwise.
 
-Related: TODO
+Related: [isNullOrEmpty]
 
 Examples:
 ```Dart
@@ -415,7 +415,7 @@ Creates a new `Map` by replacing or adding entries to this `Map` from another `M
 
 The returned `Map` preserves the entry iteration order of the original `Map`. Those entries of another `Map` that are missing in this `Map` are iterated in the end in the order of that `Map`.
 
-Related: TODO
+Related: [addAll (Dart)]
 
 Examples:
 ```Dart
@@ -431,7 +431,7 @@ List<MapEntry<K, V>> Map<K, V>.toList()
 
 Returns a `List` containing all key-value pairs.
 
-Related: TODO
+Related: [mapToIterable], [toMap]
 
 Examples:
 ```Dart
@@ -448,7 +448,7 @@ Returns a new `Map` containing all key-value pairs matching the given `predicate
 
 The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: TODO
+Related: [whereKeys], [whereNot], [whereValues]
 
 Examples:
 ```Dart
@@ -469,7 +469,7 @@ Returns a `Map` containing all key-value pairs with keys matching the given `pre
 
 The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: TODO
+Related: [where], [whereNot], [whereValues]
 
 Examples:
 ```Dart
@@ -490,7 +490,7 @@ Returns a new `Map` containing all key-value pairs not matching the given `predi
 
 The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: TODO
+Related: [where], [whereKeys], [whereValues]
 
 Examples:
 ```Dart
@@ -507,7 +507,7 @@ Returns a `Map` containing all key-value pairs with values matching the given `p
 
 The returned `Map` preserves the entry iteration order of the original `Map`.
 
-Related: TODO
+Related: [where], [whereKeys], [whereNot]
 
 Examples:
 ```Dart
@@ -516,4 +516,34 @@ print({'Hello': 2, 'Hi': 1}.whereValues((v) => v > 1)); // {'Hello': 2}
 
 ## On `Map<K extends Comparable, V>`
 
-[map (Dart)]: https://api.dart.dev/stable/2.7.1/dart-core/Map/map.html
+[any]: #any
+[asIterable]: #asIterable
+[copy]: #copy
+[every]: #every-kotlin-all
+[flatMap]: #flatMap
+[getOrDefault]: #getOrDefault
+[getOrElse]: #getOrElse
+[getOrNull]: #getOrNull
+[getValue]: #getValue
+[isNullOrEmpty]: #isNullOrEmpty
+[mapKeys]: #mapKeys
+[mapNotNull]: #mapNotNull
+[mapToIterable]: #mapToIterable
+[mapValues]: #mapValues
+[maxBy]: #maxBy
+[maxWith]: #maxWith
+[minBy]: #minBy
+[minWith]: #minWith
+[none]: #none
+[onEach]: #onEach
+[orEmpty]: #orEmpty
+[plus]: #plus
+[toList]: #toList
+[where]: #where
+[whereKeys]: #whereKeys
+[whereNot]: #whereNot
+[whereValues]: #whereValues
+
+[addAll (Dart)]: https://api.dart.dev/stable/2.3.1/dart-core/Map/addAll.html
+[map (Dart)]: https://api.dart.dev/stable/2.3.1/dart-core/Map/map.html
+[Map.from (Dart)]: https://api.dart.dev/stable/2.3.1/dart-core/Map/Map.from.html

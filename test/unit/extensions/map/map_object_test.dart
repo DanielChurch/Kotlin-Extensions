@@ -215,9 +215,9 @@ void main() {
 
     group('mapToIterable', () {
       test('throws ArgumentError when null is passed', () {
-        expectFailsWith<ArgumentError>(() => {}.mapToIterable(null)).also(
-          verifyArgumentError(name: 'transform', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => {}.mapToIterable(null))
+            .verifyArgumentError(
+                name: 'transform', message: 'Must not be null');
       });
 
       test('returns the correct value', () {
@@ -418,9 +418,8 @@ void main() {
 
     group('none', () {
       test('throws ArgumentError when null is passed', () {
-        expectFailsWith<ArgumentError>(() => {}.none(null)).also(
-          verifyArgumentError(name: 'predicate', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => {}.none(null)).verifyArgumentError(
+            name: 'predicate', message: 'Must not be null');
       });
 
       test('returns the correct value', () {
@@ -440,9 +439,8 @@ void main() {
 
     group('onEach', () {
       test('throws ArgumentError when null is passed', () {
-        expectFailsWith<ArgumentError>(() => {}.onEach(null)).also(
-          verifyArgumentError(name: 'action', message: 'Must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => {}.onEach(null))
+            .verifyArgumentError(name: 'action', message: 'Must not be null');
       });
 
       test('functions correctly', () {
@@ -474,13 +472,11 @@ void main() {
         Map nullMap;
         var nonNullMap = {};
 
-        expectFailsWith<ArgumentError>(() => nonNullMap + nullMap).also(
-          verifyArgumentError(message: 'both maps must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => nonNullMap + nullMap)
+            .verifyArgumentError(message: 'both maps must not be null');
 
-        expectFailsWith<ArgumentError>(() => nullMap + nonNullMap).also(
-          verifyArgumentError(message: 'both maps must not be null'),
-        );
+        expectFailsWith<ArgumentError>(() => nullMap + nonNullMap)
+            .verifyArgumentError(message: 'both maps must not be null');
       });
 
       test('returns the correct value', () {
