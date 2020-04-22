@@ -57,6 +57,6 @@ void expectReturnsNormally(void Function() block) {
 extension VerifyArgumentError on ArgumentError {
   void verifyArgumentError({String name, String message}) {
     this.name.expectEquals(name);
-    this.message.expectEquals(message);
+    (this.message as String).expectEquals(message);
   }
 }

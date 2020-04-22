@@ -156,20 +156,20 @@ void main() {
     group('mapKeys', () {
       test('handles empty map', () {
         <int, int>{} // Format
-            .mapKeys((i) => i)
+            .mapKeys((k, v) => k)
             .expectEquals({});
       });
 
       test('maps the keys of the map', () {
         <int, int>{0: 1, 2: 3} // Format
-            .mapKeys((k) => '$k')
+            .mapKeys((k, v) => '$k')
             .keys
             .expectEquals(['0', '2']);
       });
 
       test('keeps the same values of the map', () {
         <int, int>{0: 1, 2: 3} // Format
-            .mapKeys((k) => '$k')
+            .mapKeys((k, v) => '$k')
             .values
             .expectEquals([1, 3]);
       });
@@ -177,7 +177,7 @@ void main() {
       test('leaves the original map unmodified', () {
         <String, int>{'Hello': 0, 'World': 42}.let((originalMap) {
           originalMap
-            ..mapKeys((k) => '$k-').expectEquals({'Hello-': 0, 'World-': 42})
+            ..mapKeys((k, v) => '$k-').expectEquals({'Hello-': 0, 'World-': 42})
             ..expectEquals({'Hello': 0, 'World': 42});
         });
       });
@@ -186,20 +186,20 @@ void main() {
     group('mapValues', () {
       test('handles an empty map', () {
         <int, int>{} // Format
-            .mapValues((i) => i)
+            .mapValues((k, v) => k)
             .expectEquals({});
       });
 
       test('maps the values of the map', () {
         <int, int>{0: 1, 2: 3} // Format
-            .mapValues((k) => '$k')
+            .mapValues((k, v) => '$v')
             .values
             .expectEquals(['1', '3']);
       });
 
       test('keeps the same keys of the map', () {
         <int, int>{0: 1, 2: 3} // Format
-            .mapValues((k) => '$k')
+            .mapValues((k, v) => '$v')
             .keys
             .expectEquals([0, 2]);
       });
@@ -207,7 +207,7 @@ void main() {
       test('leaves the original map unmodified', () {
         <String, int>{'Hello': 0, 'World': 42}.let((originalMap) {
           originalMap
-            ..mapValues((i) => i + 5).expectEquals({'Hello': 5, 'World': 47})
+            ..mapValues((k, v) => v + 5).expectEquals({'Hello': 5, 'World': 47})
             ..expectEquals({'Hello': 0, 'World': 42});
         });
       });
@@ -419,7 +419,7 @@ void main() {
     group('none', () {
       test('throws ArgumentError when null is passed', () {
         expectFailsWith<ArgumentError>(() => {}.none(null)).verifyArgumentError(
-            name: 'predicate', message: 'Must not be null');
+            name: 'predicate', message: 'Must not be null',);
       });
 
       test('returns the correct value', () {

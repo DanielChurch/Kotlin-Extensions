@@ -1,4 +1,3 @@
-import 'package:kotlin_extensions/list.dart';
 import 'package:kotlin_extensions/typedefs.dart';
 
 Comparator<T> compareBy<T>(Selector<T, Comparable> selector,

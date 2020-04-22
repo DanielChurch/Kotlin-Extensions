@@ -199,13 +199,13 @@ extension MapKeys<K, V> on Map<K, V> {
   ///
   /// Examples:
   /// ```Dart
-  /// {0: 1, 2: 3}.mapKeys((k) => k + 5); // => {5: 1, 7: 3}
-  /// {0: 1, 2: 3}.mapKeys((i) => 0); // => {0: 3}
+  /// {0: 1, 2: 3}.mapKeys((k, v) => k + 5); // => {5: 1, 7: 3}
+  /// {0: 1, 2: 3}.mapKeys((k, v) => 0); // => {0: 3}
   /// ```
-  Map<R, V> mapKeys<R>(Transform<K, R> transform) {
+  Map<R, V> mapKeys<R>(BinaryTransform<K, V, R> transform) {
     ArgumentError.checkNotNull(transform, 'transform');
 
-    return Map.fromIterables(keys.map(transform), values);
+    return Map.fromIterables(keys.map((k) => transform(k, this[k])), values);
   }
 }
 
@@ -253,13 +253,13 @@ extension MapValues<K, V> on Map<K, V> {
   ///
   /// Examples:
   /// ```Dart
-  /// {0: 1, 2: 3}.mapValues((v) => v * 2); // => {0: 2, 2: 6}
-  /// {'Hello': 'World'}.mapValues((v) => '$v$v'); // => {'Hello': 'WorldWorld'}
+  /// {0: 1, 2: 3}.mapValues((k, v) => v * 2); // => {0: 2, 2: 6}
+  /// {'Hello': 'World'}.mapValues((k, v) => '$v$v'); // => {'Hello': 'WorldWorld'}
   /// ```
-  Map<K, R> mapValues<R>(Transform<V, R> transform) {
+  Map<K, R> mapValues<R>(BinaryTransform<K, V, R> transform) {
     ArgumentError.checkNotNull(transform, 'transform');
 
-    return Map.fromIterables(keys, values.map(transform));
+    return Map.fromIterables(keys, keys.map((k) => transform(k, this[k])));
   }
 }
 

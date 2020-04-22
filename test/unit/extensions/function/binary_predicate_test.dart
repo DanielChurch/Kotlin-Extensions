@@ -61,9 +61,9 @@ void main() {
           isSumOverTwo.and(areBothNonNull)(null, 9);
         }).also((error) {
           final errorMessage =
-              'NoSuchMethodError: The method \'+\' was called on null.';
+              "NoSuchMethodError: The method '+' was called on null.";
 
-          '$error'.contains(errorMessage).expectIsTrue();
+          error.toString().contains(errorMessage).expectIsTrue();
         });
       });
     });
