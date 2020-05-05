@@ -1,3 +1,4 @@
+# osx to install LCOV for coverage
 os: osx
 language: dart
 dart:
@@ -14,7 +15,7 @@ dart_task:
 
 script: 
   # Collect coverage and psot to codecov
-  - bash dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=9090 test/unit/kotlin_extensions_test.dart
-  - bash collect_coverage --uri=http://127.0.0.1:9090/ -o coverage.json --resume-isolates
-  - bash format_coverage -l -i coverage.json -o lcov.info --packages=.packages --report-on=lib
+  - dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=9090 test/unit/kotlin_extensions_test.dart
+  - collect_coverage --uri=http://127.0.0.1:9090/ -o coverage.json --resume-isolates
+  - format_coverage -l -i coverage.json -o lcov.info --packages=.packages --report-on=lib
   - bash <(curl -s https://codecov.io/bash)
