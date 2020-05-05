@@ -14,17 +14,17 @@ KotlinExtensions.dart
 </p>
 
 <p align="center">
-  <a href="https://travis-ci.com/DanielChurch/KtXt.dart">
-    <img src="https://travis-ci.com/DanielChurch/KtXt.dart.svg?branch=master">
+  <a href="https://travis-ci.org/DanielChurch/Kotlin-Extensions">
+    <img src="https://travis-ci.org/DanielChurch/Kotlin-Extensions.svg?branch=master">
   </a>
-  <a href="https://codecov.io/gh/DanielChurch/KtXt.dart">
-    <img src="https://codecov.io/gh/DanielChurch/KtXt.dart/branch/master/graph/badge.svg">
+  <a href="https://codecov.io/gh/DanielChurch/Kotlin-Extensions">
+    <img src="https://codecov.io/gh/DanielChurch/Kotlin-Extensions/branch/master/graph/badge.svg">
   </a>
 </p>
 
 ## Introduction
 
-`KotlinExtensions.dart` is a package that adds implementations of extensions from [Kotlin](https://kotlinlang.org/) to [Dart](https://dart.dev/).
+`KotlinExtensions` is a package that adds implementations of extensions from [Kotlin](https://kotlinlang.org/) to [Dart](https://dart.dev/).
 
 The extensions are:
   - Built on Dart's existing types
