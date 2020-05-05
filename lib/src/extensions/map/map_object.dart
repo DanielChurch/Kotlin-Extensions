@@ -329,7 +329,7 @@ extension MinWith<K, V> on Map<K, V> {
   /// Examples:
   /// ```Dart
   /// [-1, 5, 2].minWith((i, j) => i < j ? -1 : 1); // => -1
-  /// 
+  ///
   /// [5, 4, 1, 9, 42].minWith(compareBy((i) => -i)); // => 42
   /// ['Hello', 'Foo'].minWith(compareBy((str) => str.length)); // => 'Foo'
   /// ```

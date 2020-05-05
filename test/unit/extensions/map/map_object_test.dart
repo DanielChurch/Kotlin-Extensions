@@ -419,7 +419,9 @@ void main() {
     group('none', () {
       test('throws ArgumentError when null is passed', () {
         expectFailsWith<ArgumentError>(() => {}.none(null)).verifyArgumentError(
-            name: 'predicate', message: 'Must not be null',);
+          name: 'predicate',
+          message: 'Must not be null',
+        );
       });
 
       test('returns the correct value', () {
