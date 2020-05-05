@@ -14,8 +14,6 @@ dart_task:
   - dartfmt
 
 script: 
-  # Collect coverage and psot to codecov
-  - dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=9090 test/unit/kotlin_extensions_test.dart
-  - collect_coverage --uri=http://127.0.0.1:9090/ -o coverage.json --resume-isolates
-  - format_coverage -l -i coverage.json -o lcov.info --packages=.packages --report-on=lib
+  # Collect coverage and post to codecov
+  - make coverage
   - bash <(curl -s https://codecov.io/bash)
