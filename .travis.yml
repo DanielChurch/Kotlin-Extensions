@@ -15,5 +15,6 @@ dart_task:
 
 script: 
   # Collect coverage and post to codecov
+  - pub global activate coverage
   - make coverage
   - cd coverage && bash <(curl -s https://codecov.io/bash)
