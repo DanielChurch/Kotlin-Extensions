@@ -1,14 +1,11 @@
 os: osx
 language: dart
 dart:
-# Install the latest stable release
-- stable
+  - stable
 
 before_install:
   - brew update
   - brew install lcov
-  - brew tap dart-lang/dart
-  - brew install dart --with-content-shell --with-dartium
 
 dart_task:
   - test: --platform vm
@@ -16,6 +13,7 @@ dart_task:
   - dartfmt
 
 script: 
+  # Collect coverage and psot to codecov
   - bash dart --pause-isolates-on-exit --disable-service-auth-codes --enable-vm-service=9090 test/unit/kotlin_extensions_test.dart
   - bash collect_coverage --uri=http://127.0.0.1:9090/ -o coverage.json --resume-isolates
   - bash format_coverage -l -i coverage.json -o lcov.info --packages=.packages --report-on=lib
