@@ -6,4 +6,7 @@ class Pair<F, S> {
 
   @override
   String toString() => 'Pair($first, $second)';
+
+  static F getFirst<F, S>(Pair<F, S> pair) => pair.first;
+  static S getSecond<F, S>(Pair<F, S> pair) => pair.second;
 }

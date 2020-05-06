@@ -1,5 +1,3 @@
-@TestOn('vm')
-
 import 'package:test/test.dart';
 
 import 'iterable/iterable_comparable_test.dart' as iterable_comparable_test;

@@ -1,6 +1,6 @@
-import 'package:kt_xt/typedefs.dart';
+import 'package:kotlin_extensions/typedefs.dart';
 
-extension KotlinObjectExtensions<T> on T {
+extension Also<T> on T {
   /// Calls the specified function [Block] with `this`
   /// value as its argument and returns `this` value.
   ///
@@ -11,11 +11,15 @@ extension KotlinObjectExtensions<T> on T {
   /// }
   /// ```
   T also(Block<T, void> block) {
+    ArgumentError.checkNotNull(block, 'block');
+
     block(this);
 
     return this;
   }
+}
 
+extension Let<T> on T {
   /// Calls the specified function [block] with `this`
   /// value as its argument and returns its result.
   ///
@@ -32,5 +36,19 @@ extension KotlinObjectExtensions<T> on T {
   ///
   /// reverse('Hello'); // => 'olleH'
   /// ```
-  R let<R>(Block<T, R> block) => block(this);
+  R let<R>(Block<T, R> block) {
+    ArgumentError.checkNotNull(block, 'block');
+
+    return block(this);
+  }
+}
+
+extension To<K> on K {
+  /// Creates a [MapEntry<T, V>] from [this] to [that].
+  ///
+  /// Examples:
+  /// ```Dart
+  /// print('Hello'.to('World')); // => MapEntry(Hello, World)
+  /// ```
+  MapEntry<K, V> to<V>(V that) => MapEntry<K, V>(this, that);
 }
