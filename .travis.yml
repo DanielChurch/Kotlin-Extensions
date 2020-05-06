@@ -13,7 +13,7 @@ dart_task:
   - dartanalyzer: --fatal-warnings lib
   - dartfmt
 
-script: 
+script:
   # Collect coverage and post to codecov
   - pub global activate coverage
   - make coverage
